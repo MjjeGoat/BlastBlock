@@ -28,6 +28,7 @@ public class MainScreen extends JFrame {
         cardPanel.add(shop, "Shop");
 
 
+
         add(cardPanel);
         pack();
 

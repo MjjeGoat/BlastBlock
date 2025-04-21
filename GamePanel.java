@@ -12,7 +12,6 @@ public class GamePanel extends JPanel {
         this.setDoubleBuffered(true);
         this.setLayout(null);
 
-
         startButton();
         shopButton();
         exitButton();
