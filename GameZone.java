@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class GameZone extends JPanel {
     private Box[][] grid = new Box[6][6];
     private ArrayList<String> blocks = new ArrayList<>();
+    MainScreen mainScreen;
 
     public ArrayList<String> getBlocks() {
         return blocks;
@@ -18,7 +19,8 @@ public class GameZone extends JPanel {
     private int howManyPlaced = 0;
     private ArrayList<Point> points = new ArrayList<>();
 
-    public GameZone() {
+    public GameZone(MainScreen mainScreen) {
+        this.mainScreen = mainScreen;
         this.setPreferredSize(new Dimension(450, 800));
         this.setBackground(Color.black);
         this.setLayout(null);
@@ -27,6 +29,7 @@ public class GameZone extends JPanel {
             for (int col = 0; col < 6; col++) {
                 grid[row][col] = new Box();
             }
+        menuButton();
         }
 
         Inventory inventory = new Inventory(this);
@@ -238,8 +241,15 @@ public class GameZone extends JPanel {
         return howManyPlaced;
     }
 
-    public void menuButton(){
-        JButton menu = new JButton();
-        menu.setBounds(350,0,0,0);
+    private void menuButton(){
+        ImageIcon menu = new ImageIcon("src/res/MainMenu.png");
+        ImageIcon resized = new ImageIcon(menu.getImage().getScaledInstance(100,75, Image.SCALE_DEFAULT));
+        JButton menuBut = new JButton(resized);
+        menuBut.setBounds(350,0,100,75);
+        this.add(menuBut);
+
+        menuBut.addActionListener(e -> {
+            mainScreen.showCardPanel("MainMenu");
+        });
     }
 }

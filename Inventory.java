@@ -17,7 +17,7 @@ public class Inventory extends JPanel {
     public void fillInv(){
      Random rd = new Random();
         for (int i = 0; i < 3; i++) {
-            int type = rd.nextInt(11);
+            int type = rd.nextInt(12);
             Block block  = new Block(type,gameZone);
             block.setBounds(i*100,0,100,100);
             block.setLocation(75 + i * 100, 575);

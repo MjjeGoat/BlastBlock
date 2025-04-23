@@ -20,8 +20,8 @@ public class MainScreen extends JFrame {
         cardPanel.setSize(new Dimension(450,800));
 
         GamePanel gamePanel = new GamePanel(this);
-        GameZone gameZone = new GameZone();
-        Shop shop = new Shop();
+        GameZone gameZone = new GameZone(this);
+        Shop shop = new Shop(this);
 
         cardPanel.add(gamePanel, "MainMenu");
         cardPanel.add(gameZone, "GameZone");
