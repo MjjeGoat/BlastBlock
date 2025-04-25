@@ -128,6 +128,7 @@ public class GameZone extends JPanel {
                             grid[gridRow][gridCol].setOn(true);
                             grid[gridRow][gridCol].setImageb(new ImageIcon("src/res/part.png"));
                         }
+
                     }
                     rowOffset++;
                 }
