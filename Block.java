@@ -32,6 +32,7 @@ public class Block extends JPanel {
 
             public void mouseReleased(MouseEvent e) {
                 gameZone.placeBlock(Block.this, getX(), getY());
+                gameZone.getBlocks().remove(Block.this);
             }
         });
 

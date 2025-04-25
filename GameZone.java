@@ -17,7 +17,7 @@ public class GameZone extends JPanel {
         return grid;
     }
 
-    private int howManyPlaced = 0;
+    private int howManyPlaced = 3;
     private ArrayList<Point> points = new ArrayList<>();
 
     public GameZone(MainScreen mainScreen) {
@@ -30,12 +30,11 @@ public class GameZone extends JPanel {
             for (int col = 0; col < 6; col++) {
                 grid[row][col] = new Box();
             }
-        menuButton();
         }
+        inventory();
+        menuButton();
 
 
-        Inventory inventory = new Inventory(this);
-        this.add(inventory);
 
     }
 
@@ -146,14 +145,15 @@ public class GameZone extends JPanel {
         }
         repaint();
         checkIfAll();
-        newInventory();
+        if (howManyPlaced == 3) {
+            inventory();
+        }
 
-        System.out.println(gameOver.endGame());
 
         if (gameOver.endGame()){
-            mainScreen.showCardPanel("Game Over");
             gameOver.clearBoard();
-            newInventory();
+            inventory();
+            mainScreen.showCardPanel("Game Over");
         }
 
     }
@@ -185,23 +185,19 @@ public class GameZone extends JPanel {
         }
     }
 
-    public void newInventory() {
-        System.out.println(howManyPlaced);
-        if (howManyPlaced == 3) {
-            howManyPlaced = 0;
 
-            for (Component comp : getComponents()) {
-                if (comp instanceof Inventory) {
-                    remove(comp);
-                }
+    public void inventory(){
+        for (Component comp : this.getComponents()) {
+            if (comp instanceof Inventory) {
+                this.remove(comp);
             }
-
-            Inventory inv = new Inventory(this);
-            this.add(inv);
-            this.revalidate();
-            this.repaint();
         }
+        Inventory inventory = new Inventory(this);
+        this.add(inventory);
+        howManyPlaced = 0;
+        this.repaint();
     }
+
 
 
     public void checkIfAll() {

@@ -27,11 +27,12 @@ public class GameOver extends JPanel {
             if (canFitAnywhere(block)) {
                 gameOver = false;
             }
-            if (gameOver){
-                return true;
-            }
         }
-        return false;
+        if (gameOver){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     private boolean canFitAnywhere(Block block) {
@@ -65,6 +66,7 @@ public class GameOver extends JPanel {
     }
 
     private boolean canPlaceShapeAt(ArrayList<String[]> shape, int baseRow, int baseCol, Box[][] grid) {
+        boolean placed = false;
         for (int rowOffset = 0; rowOffset < shape.size(); rowOffset++) {
             for (int colOffset = 0; colOffset < shape.get(rowOffset).length; colOffset++) {
                 if (Integer.parseInt(shape.get(rowOffset)[colOffset]) == 1) {
@@ -88,6 +90,9 @@ public class GameOver extends JPanel {
                 zone.getGrid()[j][k].setOn(false);
                 zone.getGrid()[j][k].setImageb(box);
             }
+        }
+        for(Block block : zone.getBlocks()) {
+            zone.remove(block);
         }
         repaint();
     }

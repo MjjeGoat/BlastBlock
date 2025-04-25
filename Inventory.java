@@ -26,8 +26,5 @@ public class Inventory extends JPanel {
             gameZone.add(block);
             gameZone.repaint();
         }
-
-
-
     }
 }
