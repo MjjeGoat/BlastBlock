@@ -22,10 +22,12 @@ public class MainScreen extends JFrame {
         GamePanel gamePanel = new GamePanel(this);
         GameZone gameZone = new GameZone(this);
         Shop shop = new Shop(this);
+        GameOver gameOver = new GameOver(gameZone,this);
 
         cardPanel.add(gamePanel, "MainMenu");
         cardPanel.add(gameZone, "GameZone");
         cardPanel.add(shop, "Shop");
+        cardPanel.add(gameOver, "Game Over");
 
 
 

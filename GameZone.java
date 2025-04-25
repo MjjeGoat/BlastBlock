@@ -5,10 +5,11 @@ import java.util.ArrayList;
 
 public class GameZone extends JPanel {
     private Box[][] grid = new Box[6][6];
-    private ArrayList<String> blocks = new ArrayList<>();
-    MainScreen mainScreen;
+    private ArrayList<Block> blocks = new ArrayList<>();
+    private MainScreen mainScreen;
+    private GameOver gameOver = new GameOver(this,mainScreen);
 
-    public ArrayList<String> getBlocks() {
+    public ArrayList<Block> getBlocks() {
         return blocks;
     }
 
@@ -31,6 +32,7 @@ public class GameZone extends JPanel {
             }
         menuButton();
         }
+
 
         Inventory inventory = new Inventory(this);
         this.add(inventory);
@@ -138,13 +140,21 @@ public class GameZone extends JPanel {
                     howManyPlaced++;
                 }
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
         repaint();
         checkIfAll();
         newInventory();
+
+        System.out.println(gameOver.endGame());
+
+        if (gameOver.endGame()){
+            mainScreen.showCardPanel("Game Over");
+            gameOver.clearBoard();
+            newInventory();
+        }
+
     }
 
 

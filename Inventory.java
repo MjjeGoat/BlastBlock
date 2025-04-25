@@ -16,12 +16,13 @@ public class Inventory extends JPanel {
 
     public void fillInv(){
      Random rd = new Random();
+     gameZone.getBlocks().clear();
         for (int i = 0; i < 3; i++) {
             int type = rd.nextInt(12);
             Block block  = new Block(type,gameZone);
             block.setBounds(i*100,0,100,100);
             block.setLocation(75 + i * 100, 575);
-            gameZone.getBlocks().add("src/blocks/" + type);
+            gameZone.getBlocks().add(block);
             gameZone.add(block);
             gameZone.repaint();
         }

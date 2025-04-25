@@ -5,6 +5,8 @@ public class Shop extends JPanel {
 
     MainScreen mainScreen;
 
+    private int money = 0;
+
     public Shop(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
         this.setBackground(Color.BLUE);
