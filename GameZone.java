@@ -7,7 +7,20 @@ public class GameZone extends JPanel {
     private Box[][] grid = new Box[6][6];
     private ArrayList<Block> blocks = new ArrayList<>();
     private MainScreen mainScreen;
-    private GameOver gameOver = new GameOver(this,mainScreen);
+    private int score = 0;
+    private GameOver gameOver;
+    private JLabel scoreLabel = new JLabel("Score: " + score);
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void setGameOver(GameOver gameOver) {
+        this.gameOver = gameOver;
+    }
+
+    public int getScore() {
+        return score;
+    }
 
     public ArrayList<Block> getBlocks() {
         return blocks;
@@ -21,6 +34,7 @@ public class GameZone extends JPanel {
     private ArrayList<Point> points = new ArrayList<>();
 
     public GameZone(MainScreen mainScreen) {
+
         this.mainScreen = mainScreen;
         this.setPreferredSize(new Dimension(450, 800));
         this.setBackground(Color.black);
@@ -33,9 +47,7 @@ public class GameZone extends JPanel {
         }
         inventory();
         menuButton();
-
-
-
+        score();
     }
 
     public void preview(Block block, int pixelX, int pixelY) {
@@ -81,6 +93,7 @@ public class GameZone extends JPanel {
 
     //ChatGPT metoda
     public void placeBlock(Block block, int pixelX, int pixelY) {
+        System.out.println(blocks.size());
         int cellSize = grid[0][0].getWidth();
         int startX = (getWidth() - (6 * cellSize)) / 2;
         int startY = (getHeight() - (6 * cellSize)) / 2;
@@ -126,6 +139,8 @@ public class GameZone extends JPanel {
                             int gridCol = baseCol + colOffset;
                             grid[gridRow][gridCol].setOn(true);
                             grid[gridRow][gridCol].setImageb(new ImageIcon("src/res/part.png"));
+                            points.clear();
+                            repaint();
                         }
 
                     }
@@ -145,15 +160,14 @@ public class GameZone extends JPanel {
         }
         repaint();
         checkIfAll();
+        score();
         if (howManyPlaced == 3) {
+            blocks.clear();
             inventory();
         }
-
-
         if (gameOver.endGame()){
-            gameOver.clearBoard();
-            inventory();
             mainScreen.showCardPanel("Game Over");
+            //gameOver.clearBoard();
         }
 
     }
@@ -216,6 +230,7 @@ public class GameZone extends JPanel {
                 for (int col = 0; col < 6; col++) {
                     willBeDeleted.add(new Point(row, col));
                 }
+                setScore(score+100);
             }
         }
 
@@ -232,6 +247,7 @@ public class GameZone extends JPanel {
                 for (int row = 0; row < 6; row++) {
                     willBeDeleted.add(new Point(row, col));
                 }
+                setScore(score+100);
             }
         }
 
@@ -258,5 +274,15 @@ public class GameZone extends JPanel {
         menuBut.addActionListener(e -> {
             mainScreen.showCardPanel("MainMenu");
         });
+    }
+
+    public void score(){
+        scoreLabel.setFont(new Font("Arial",Font.BOLD,20));
+        scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        scoreLabel.setVerticalAlignment(SwingConstants.CENTER);
+        scoreLabel.setBounds(0, 0, 200, 75);
+        scoreLabel.setText("Score: " + score);
+        scoreLabel.setForeground(Color.white);
+        this.add(scoreLabel);
     }
 }

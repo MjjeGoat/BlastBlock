@@ -5,7 +5,7 @@ public class MainScreen extends JFrame {
 
     private CardLayout cardLayout;
     private JPanel cardPanel;
-    private ImageIcon logo = new ImageIcon("src/logo.png");
+    private ImageIcon logo = new ImageIcon("src/res/Logo.png");
 
 
     public MainScreen() {
@@ -23,6 +23,7 @@ public class MainScreen extends JFrame {
         GameZone gameZone = new GameZone(this);
         Shop shop = new Shop(this);
         GameOver gameOver = new GameOver(gameZone,this);
+        gameZone.setGameOver(gameOver);
 
         cardPanel.add(gamePanel, "MainMenu");
         cardPanel.add(gameZone, "GameZone");
