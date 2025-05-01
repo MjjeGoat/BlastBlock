@@ -11,12 +11,12 @@ public class Inventory extends JPanel {
         this.setLayout(null);
         this.setBackground(Color.GRAY);
         this.setBounds(75,575,300,100);
+        gameZone.getBlocks().clear();
         fillInv();
     }
 
     public void fillInv(){
      Random rd = new Random();
-     gameZone.getBlocks().clear();
         for (int i = 0; i < 3; i++) {
             int type = rd.nextInt(12);
             Block block  = new Block(type,gameZone);

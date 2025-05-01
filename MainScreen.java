@@ -28,7 +28,7 @@ public class MainScreen extends JFrame {
         cardPanel.add(gamePanel, "MainMenu");
         cardPanel.add(gameZone, "GameZone");
         cardPanel.add(shop, "Shop");
-        cardPanel.add(gameOver, "Game Over");
+        cardPanel.add(gameOver, "GameOver");
 
 
 

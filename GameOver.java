@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameOver extends JPanel {
-
+    private ImageIcon menu = new ImageIcon("src/res/MainMenu.png");
+    private ImageIcon resized = new ImageIcon(menu.getImage().getScaledInstance(100, 75, Image.SCALE_DEFAULT));
+    private JButton menuBut = new JButton(resized);
     private GameZone zone;
     private MainScreen mainScreen;
     private JLabel scoreLabel;
@@ -45,9 +47,6 @@ public class GameOver extends JPanel {
                 return false;
             }
         }
-        for (int i = 0; i < zone.getBlocks().size(); i++) {
-            System.out.println(zone.getBlocks().get(i).getType());
-        }
         return true;
     }
 
@@ -79,14 +78,15 @@ public class GameOver extends JPanel {
         return false;
     }
 
+
     private boolean canPlaceShapeAt(ArrayList<String[]> shape, int baseRow, int baseCol, Box[][] grid) {
-        boolean placed = false;
         for (int rowOffset = 0; rowOffset < shape.size(); rowOffset++) {
-            for (int colOffset = 0; colOffset < shape.get(rowOffset).length; colOffset++) {
-                if (Integer.parseInt(shape.get(rowOffset)[colOffset]) == 1) {
+            String[] row = shape.get(rowOffset);
+            for (int colOffset = 0; colOffset < row.length; colOffset++) {
+                if (Integer.parseInt(row[colOffset].trim()) == 1) {
                     int r = baseRow + rowOffset;
                     int c = baseCol + colOffset;
-                    if (r < 0 || r >= 6 || c < 0 || c >= 6 || grid[r][c].isOn()) {
+                    if (r < 0 || r >= grid.length || c < 0 || c >= grid[0].length || grid[r][c].isOn()) {
                         return false;
                     }
                 }
@@ -94,6 +94,7 @@ public class GameOver extends JPanel {
         }
         return true;
     }
+
 
 
     public void clearBoard() {
@@ -109,16 +110,13 @@ public class GameOver extends JPanel {
         }
         zone.inventory();
         finalScore = zone.getScore();
-        zone.setScore(0);
         scoreDisplay();
+        finalScore = 0;
         revalidate();
         repaint();
     }
 
     private void menuButton() {
-        ImageIcon menu = new ImageIcon("src/res/MainMenu.png");
-        ImageIcon resized = new ImageIcon(menu.getImage().getScaledInstance(100, 75, Image.SCALE_DEFAULT));
-        JButton menuBut = new JButton(resized);
         menuBut.setBounds(350, 0, 100, 75);
         this.add(menuBut);
 

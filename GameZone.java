@@ -10,6 +10,7 @@ public class GameZone extends JPanel {
     private int score = 0;
     private GameOver gameOver;
     private JLabel scoreLabel = new JLabel("Score: " + score);
+
     public void setScore(int score) {
         this.score = score;
     }
@@ -30,7 +31,7 @@ public class GameZone extends JPanel {
         return grid;
     }
 
-    private int howManyPlaced = 3;
+    private int howManyPlaced = 0;
     private ArrayList<Point> points = new ArrayList<>();
 
     public GameZone(MainScreen mainScreen) {
@@ -93,13 +94,16 @@ public class GameZone extends JPanel {
 
     //ChatGPT metoda
     public void placeBlock(Block block, int pixelX, int pixelY) {
-        System.out.println(blocks.size());
+        System.out.println(blocks);
+        System.out.println(howManyPlaced);
         int cellSize = grid[0][0].getWidth();
         int startX = (getWidth() - (6 * cellSize)) / 2;
         int startY = (getHeight() - (6 * cellSize)) / 2;
-
         int baseCol = (pixelX - startX) / cellSize;
         int baseRow = (pixelY - startY) / cellSize;
+
+
+        boolean placed = false;
 
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/blocks/" + block.getType()));
@@ -140,34 +144,32 @@ public class GameZone extends JPanel {
                             grid[gridRow][gridCol].setOn(true);
                             grid[gridRow][gridCol].setImageb(new ImageIcon("src/res/part.png"));
                             points.clear();
+                            placed = true;
                             repaint();
                         }
-
                     }
                     rowOffset++;
                 }
 
-                Container parent = block.getParent();
-                if (parent != null) {
-                    parent.remove(block);
-                    parent.revalidate();
-                    parent.repaint();
+                if (placed){
                     howManyPlaced++;
+                    this.remove(block);
+                    repaint();
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        repaint();
         checkIfAll();
         score();
+        if (gameOver.endGame()) {
+            endGameButtons();
+            score();
+        }
         if (howManyPlaced == 3) {
+            howManyPlaced = 0;
             blocks.clear();
             inventory();
-        }
-        if (gameOver.endGame()){
-            mainScreen.showCardPanel("Game Over");
-            //gameOver.clearBoard();
         }
 
     }
@@ -191,7 +193,7 @@ public class GameZone extends JPanel {
             }
         }
 
-        g.setColor(new Color(135,206,235));
+        g.setColor(new Color(135, 206, 235));
         for (Point p : points) {
             int x = startX + p.y * cellSize;
             int y = startY + p.x * cellSize;
@@ -200,7 +202,7 @@ public class GameZone extends JPanel {
     }
 
 
-    public void inventory(){
+    public void inventory() {
         for (Component comp : this.getComponents()) {
             if (comp instanceof Inventory) {
                 this.remove(comp);
@@ -208,10 +210,8 @@ public class GameZone extends JPanel {
         }
         Inventory inventory = new Inventory(this);
         this.add(inventory);
-        howManyPlaced = 0;
         this.repaint();
     }
-
 
 
     public void checkIfAll() {
@@ -230,7 +230,7 @@ public class GameZone extends JPanel {
                 for (int col = 0; col < 6; col++) {
                     willBeDeleted.add(new Point(row, col));
                 }
-                setScore(score+100);
+                setScore(score + 100);
             }
         }
 
@@ -247,7 +247,7 @@ public class GameZone extends JPanel {
                 for (int row = 0; row < 6; row++) {
                     willBeDeleted.add(new Point(row, col));
                 }
-                setScore(score+100);
+                setScore(score + 100);
             }
         }
 
@@ -264,11 +264,11 @@ public class GameZone extends JPanel {
         return howManyPlaced;
     }
 
-    private void menuButton(){
+    private void menuButton() {
         ImageIcon menu = new ImageIcon("src/res/MainMenu.png");
-        ImageIcon resized = new ImageIcon(menu.getImage().getScaledInstance(100,75, Image.SCALE_DEFAULT));
+        ImageIcon resized = new ImageIcon(menu.getImage().getScaledInstance(100, 75, Image.SCALE_DEFAULT));
         JButton menuBut = new JButton(resized);
-        menuBut.setBounds(350,0,100,75);
+        menuBut.setBounds(350, 0, 100, 75);
         this.add(menuBut);
 
         menuBut.addActionListener(e -> {
@@ -276,13 +276,49 @@ public class GameZone extends JPanel {
         });
     }
 
-    public void score(){
-        scoreLabel.setFont(new Font("Arial",Font.BOLD,20));
+    public void score() {
+        scoreLabel.setFont(new Font("Arial", Font.BOLD, 20));
         scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
         scoreLabel.setVerticalAlignment(SwingConstants.CENTER);
         scoreLabel.setBounds(0, 0, 200, 75);
         scoreLabel.setText("Score: " + score);
         scoreLabel.setForeground(Color.white);
         this.add(scoreLabel);
+    }
+
+    public void endGameButtons() {
+        JButton endGameButton = new JButton("End Game");
+        JButton continueButton = new JButton("Continue");
+        endGameButton.setFont(new Font("Arial", Font.BOLD, 12));
+        continueButton.setFont(new Font("Arial", Font.BOLD, 12));
+        endGameButton.setBounds(225, 500, 100, 75);
+        continueButton.setBounds(125, 500, 100, 75);
+        this.add(endGameButton);
+        this.add(continueButton);
+
+        continueButton.addActionListener(e -> {
+            this.remove(continueButton);
+            this.remove(endGameButton);
+            inventory();
+            ImageIcon box = new ImageIcon("src/res/box.png");
+            for (int j = 0; j < 6; j++) {
+                for (int k = 0; k < 6; k++) {
+                    grid[j][k].setOn(false);
+                    grid[j][k].setImageb(box);
+                }
+            }
+            for (Block block : blocks) {
+                this.remove(block);
+            }
+        });
+
+        endGameButton.addActionListener(e -> {
+            setScore(0);
+            this.remove(endGameButton);
+            this.remove(continueButton);
+            mainScreen.showCardPanel("GameOver");
+            gameOver.clearBoard();
+        });
+
     }
 }
