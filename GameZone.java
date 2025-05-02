@@ -8,8 +8,12 @@ public class GameZone extends JPanel {
     private ArrayList<Block> blocks = new ArrayList<>();
     private MainScreen mainScreen;
     private int score = 0;
+    private int combo = 1;
+    private int howManyPlaced = 0;
+    private int blockCountCombo = 0;
     private GameOver gameOver;
     private JLabel scoreLabel = new JLabel("Score: " + score);
+    private JLabel comboLabel = new JLabel("Combo: " + combo);
 
     public void setScore(int score) {
         this.score = score;
@@ -31,7 +35,6 @@ public class GameZone extends JPanel {
         return grid;
     }
 
-    private int howManyPlaced = 0;
     private ArrayList<Point> points = new ArrayList<>();
 
     public GameZone(MainScreen mainScreen) {
@@ -49,6 +52,7 @@ public class GameZone extends JPanel {
         inventory();
         menuButton();
         score();
+        combo();
     }
 
     public void preview(Block block, int pixelX, int pixelY) {
@@ -94,8 +98,6 @@ public class GameZone extends JPanel {
 
     //ChatGPT metoda
     public void placeBlock(Block block, int pixelX, int pixelY) {
-        System.out.println(blocks);
-        System.out.println(howManyPlaced);
         int cellSize = grid[0][0].getWidth();
         int startX = (getWidth() - (6 * cellSize)) / 2;
         int startY = (getHeight() - (6 * cellSize)) / 2;
@@ -151,27 +153,34 @@ public class GameZone extends JPanel {
                     rowOffset++;
                 }
 
-                if (placed){
+                if (placed) {
                     howManyPlaced++;
+                    blockCountCombo++;
+                    checkIfAll();
+                    if (allClear()) {
+                        setScore(score + 500);
+                    }
+                    if (blockCountCombo == 3) {
+                        combo = 1;
+                    }
+                    if (howManyPlaced == 3) {
+                        howManyPlaced = 0;
+                        blocks.clear();
+                        inventory();
+                    }
+                    System.out.println(gameOver.endGame());
+                    if (gameOver.endGame()) {
+                        endGameButtons();
+                    }
                     this.remove(block);
+                    score();
+                    combo();
                     repaint();
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        checkIfAll();
-        score();
-        if (gameOver.endGame()) {
-            endGameButtons();
-            score();
-        }
-        if (howManyPlaced == 3) {
-            howManyPlaced = 0;
-            blocks.clear();
-            inventory();
-        }
-
     }
 
 
@@ -230,7 +239,9 @@ public class GameZone extends JPanel {
                 for (int col = 0; col < 6; col++) {
                     willBeDeleted.add(new Point(row, col));
                 }
-                setScore(score + 100);
+                blockCountCombo = 0;
+                setScore(score + (100 * combo));
+                combo = combo + 1;
             }
         }
 
@@ -247,7 +258,9 @@ public class GameZone extends JPanel {
                 for (int row = 0; row < 6; row++) {
                     willBeDeleted.add(new Point(row, col));
                 }
-                setScore(score + 100);
+                blockCountCombo = 0;
+                setScore(score + (100 * combo));
+                combo = combo + 1;
             }
         }
 
@@ -259,10 +272,22 @@ public class GameZone extends JPanel {
         repaint();
     }
 
-
-    public int getHowManyPlaced() {
-        return howManyPlaced;
+    public boolean allClear() {
+        boolean result = true;
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
+                if (grid[i][j].isOn()) {
+                    result = false;
+                }
+            }
+        }
+        if (result) {
+            return true;
+        }else {
+            return false;
+        }
     }
+
 
     private void menuButton() {
         ImageIcon menu = new ImageIcon("src/res/MainMenu.png");
@@ -285,16 +310,27 @@ public class GameZone extends JPanel {
         scoreLabel.setForeground(Color.white);
         this.add(scoreLabel);
     }
+    public void combo() {
+        comboLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        comboLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        comboLabel.setVerticalAlignment(SwingConstants.CENTER);
+        comboLabel.setBounds(0, 20, 200, 75);
+        comboLabel.setText("Combo: " + combo);
+        comboLabel.setForeground(Color.white);
+        this.add(comboLabel);
+    }
 
     public void endGameButtons() {
         JButton endGameButton = new JButton("End Game");
         JButton continueButton = new JButton("Continue");
         endGameButton.setFont(new Font("Arial", Font.BOLD, 12));
         continueButton.setFont(new Font("Arial", Font.BOLD, 12));
-        endGameButton.setBounds(225, 500, 100, 75);
-        continueButton.setBounds(125, 500, 100, 75);
+        endGameButton.setBounds(100, 550, 125, 150);
+        continueButton.setBounds(225, 550, 125, 150);
         this.add(endGameButton);
         this.add(continueButton);
+
+        blockOtherComponents(endGameButton,continueButton);
 
         continueButton.addActionListener(e -> {
             this.remove(continueButton);
@@ -310,6 +346,7 @@ public class GameZone extends JPanel {
             for (Block block : blocks) {
                 this.remove(block);
             }
+            enableAllComponents();
         });
 
         endGameButton.addActionListener(e -> {
@@ -318,7 +355,21 @@ public class GameZone extends JPanel {
             this.remove(continueButton);
             mainScreen.showCardPanel("GameOver");
             gameOver.clearBoard();
+            enableAllComponents();
         });
 
+    }
+
+    public void blockOtherComponents(JButton button,JButton button2) {
+        for (Component component : getComponents()) {
+            if (component != button&& component != button2) {
+                component.setEnabled(false);
+            }
+        }
+    }
+    public void enableAllComponents() {
+        for (Component component : getComponents()) {
+            component.setEnabled(true);
+        }
     }
 }

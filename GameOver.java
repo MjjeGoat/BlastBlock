@@ -60,12 +60,28 @@ public class GameOver extends JPanel {
                 shape.add(line.split(","));
             }
 
-            int shapeHeight = shape.size();
-            int shapeWidth = shape.get(0).length;
+            int top = -1, bottom = -1, left = -1, right = -1;
+
+            for (int r = 0; r < shape.size(); r++) {
+                String[] row = shape.get(r);
+                for (int c = 0; c < row.length; c++) {
+                    if (Integer.parseInt(row[c]) == 1) {
+                        if (top == -1) top = r;
+                        bottom = r;
+                        if (left == -1 || c < left) left = c;
+                        if (right == -1 || c > right) right = c;
+                    }
+                }
+            }
+
+            if (top == -1) return false;
+
+            int shapeHeight = bottom - top + 1;
+            int shapeWidth = right - left + 1;
 
             for (int row = 0; row <= 6 - shapeHeight; row++) {
                 for (int col = 0; col <= 6 - shapeWidth; col++) {
-                    if (canPlaceShapeAt(shape, row, col, grid)) {
+                    if (canPlaceShapeAt(shape, row, col, grid, top, left)) {
                         return true;
                     }
                 }
@@ -79,14 +95,14 @@ public class GameOver extends JPanel {
     }
 
 
-    private boolean canPlaceShapeAt(ArrayList<String[]> shape, int baseRow, int baseCol, Box[][] grid) {
-        for (int rowOffset = 0; rowOffset < shape.size(); rowOffset++) {
-            String[] row = shape.get(rowOffset);
-            for (int colOffset = 0; colOffset < row.length; colOffset++) {
-                if (Integer.parseInt(row[colOffset].trim()) == 1) {
-                    int r = baseRow + rowOffset;
-                    int c = baseCol + colOffset;
-                    if (r < 0 || r >= grid.length || c < 0 || c >= grid[0].length || grid[r][c].isOn()) {
+    private boolean canPlaceShapeAt(ArrayList<String[]> shape, int baseRow, int baseCol, Box[][] grid, int topOffset, int leftOffset) {
+        for (int r = topOffset; r < shape.size(); r++) {
+            for (int c = leftOffset; c < shape.get(r).length; c++) {
+                if (Integer.parseInt(shape.get(r)[c]) == 1) {
+                    int gridRow = baseRow + (r - topOffset);
+                    int gridCol = baseCol + (c - leftOffset);
+                    if (gridRow < 0 || gridRow >= 6 || gridCol < 0 || gridCol >= 6 ||
+                            grid[gridRow][gridCol].isOn()) {
                         return false;
                     }
                 }
