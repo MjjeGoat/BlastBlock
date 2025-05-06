@@ -20,6 +20,7 @@ public class Inventory extends JPanel {
         for (int i = 0; i < 3; i++) {
             int type = rd.nextInt(12);
             Block block  = new Block(type,gameZone);
+            block.loadShapeFromFile();
             block.setBounds(i*100,0,100,100);
             block.setLocation(75 + i * 100, 575);
             gameZone.getBlocks().add(block);

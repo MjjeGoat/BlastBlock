@@ -16,7 +16,6 @@ public class GameOver extends JPanel {
     private int finalScore;
 
     public GameOver(GameZone zone, MainScreen mainScreen) {
-        finalScore = zone.getScore();
         this.zone = zone;
         this.mainScreen = mainScreen;
         this.setPreferredSize(new Dimension(450, 800));
@@ -26,6 +25,7 @@ public class GameOver extends JPanel {
     }
 
     public void scoreDisplay() {
+        finalScore = zone.getScore();
         if (scoreLabel == null) {
             scoreLabel = new JLabel("Score: " + finalScore);
             scoreLabel.setForeground(Color.WHITE);
@@ -33,15 +33,14 @@ public class GameOver extends JPanel {
             scoreLabel.setBounds(75, 220, 300, 50);
             scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(scoreLabel);
-
         } else {
             scoreLabel.setText("Score: " + finalScore);
-
         }
     }
 
 
     public boolean endGame() {
+        System.out.println(zone.getBlocks());
         for (Block block : zone.getBlocks()) {
             if (canFitAnywhere(block)) {
                 return false;
@@ -52,57 +51,34 @@ public class GameOver extends JPanel {
 
     private boolean canFitAnywhere(Block block) {
         Box[][] grid = zone.getGrid();
+        ArrayList<String[]> shape = block.getShape();
+        boolean canFitAnywhere = false;
 
-        try (BufferedReader br = new BufferedReader(new FileReader("src/blocks/" + block.getType()))) {
-            ArrayList<String[]> shape = new ArrayList<>();
-            String line;
-            while ((line = br.readLine()) != null) {
-                shape.add(line.split(","));
-            }
+        if (shape == null || shape.isEmpty()) return false;
 
-            int top = -1, bottom = -1, left = -1, right = -1;
+        int shapeHeight = shape.size();
+        int shapeWidth = shape.get(0).length;
 
-            for (int r = 0; r < shape.size(); r++) {
-                String[] row = shape.get(r);
-                for (int c = 0; c < row.length; c++) {
-                    if (Integer.parseInt(row[c]) == 1) {
-                        if (top == -1) top = r;
-                        bottom = r;
-                        if (left == -1 || c < left) left = c;
-                        if (right == -1 || c > right) right = c;
-                    }
+        for (int row = 0; row <= 6 - shapeHeight; row++) {
+            for (int col = 0; col <= 6 - shapeWidth; col++) {
+                if (canPlaceShapeAt(shape, row, col, grid)) {
+                    System.out.println("Blok se vejde na pozici: řádek = " + row + ", sloupec = " + col);
+                    canFitAnywhere = true;
                 }
             }
-
-            if (top == -1) return false;
-
-            int shapeHeight = bottom - top + 1;
-            int shapeWidth = right - left + 1;
-
-            for (int row = 0; row <= 6 - shapeHeight; row++) {
-                for (int col = 0; col <= 6 - shapeWidth; col++) {
-                    if (canPlaceShapeAt(shape, row, col, grid, top, left)) {
-                        return true;
-                    }
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
-        return false;
+        return canFitAnywhere;
     }
 
-
-    private boolean canPlaceShapeAt(ArrayList<String[]> shape, int baseRow, int baseCol, Box[][] grid, int topOffset, int leftOffset) {
-        for (int r = topOffset; r < shape.size(); r++) {
-            for (int c = leftOffset; c < shape.get(r).length; c++) {
-                if (Integer.parseInt(shape.get(r)[c]) == 1) {
-                    int gridRow = baseRow + (r - topOffset);
-                    int gridCol = baseCol + (c - leftOffset);
-                    if (gridRow < 0 || gridRow >= 6 || gridCol < 0 || gridCol >= 6 ||
-                            grid[gridRow][gridCol].isOn()) {
+    private boolean canPlaceShapeAt(ArrayList<String[]> shape, int baseRow, int baseCol, Box[][] grid) {
+        for (int r = 0; r < shape.size(); r++) {
+            String[] row = shape.get(r);
+            for (int c = 0; c < row.length; c++) {
+                if (Integer.parseInt(row[c]) == 1) {
+                    int gridRow = baseRow + r;
+                    int gridCol = baseCol + c;
+                    if (gridRow < 0 || gridRow >= 6 || gridCol < 0 || gridCol >= 6 || grid[gridRow][gridCol].isOn()) {
                         return false;
                     }
                 }
@@ -126,8 +102,6 @@ public class GameOver extends JPanel {
         }
         zone.inventory();
         finalScore = zone.getScore();
-        scoreDisplay();
-        finalScore = 0;
         revalidate();
         repaint();
     }
@@ -154,6 +128,4 @@ public class GameOver extends JPanel {
 
         g.drawImage(gameOverImage.getImage(), x, y, 300, 300, this);
     }
-
-
 }

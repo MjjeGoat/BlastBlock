@@ -4,8 +4,8 @@ import java.awt.*;
 public class Shop extends JPanel {
 
     MainScreen mainScreen;
-
-    private int money = 0;
+    Player player = new Player();
+    JLabel moneyLabel = new JLabel("Money: " + player.getMoney());
 
     public Shop(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
@@ -14,6 +14,7 @@ public class Shop extends JPanel {
         this.setDoubleBuffered(true);
         this.setLayout(null);
         menuButton();
+        moneyShow();
     }
 
 
@@ -27,5 +28,13 @@ public class Shop extends JPanel {
         menuBut.addActionListener(e -> {
             mainScreen.showCardPanel("MainMenu");
         });
+    }
+
+    private void moneyShow(){
+        moneyLabel.setText("Money: " + player.getMoney());
+        moneyLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        moneyLabel.setForeground(Color.BLACK);
+        moneyLabel.setBounds(10,10,250,150);
+        this.add(moneyLabel);
     }
 }

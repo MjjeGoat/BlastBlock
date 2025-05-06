@@ -14,6 +14,7 @@ public class GameZone extends JPanel {
     private GameOver gameOver;
     private JLabel scoreLabel = new JLabel("Score: " + score);
     private JLabel comboLabel = new JLabel("Combo: " + combo);
+    private Player player = new Player();
 
     public void setScore(int score) {
         this.score = score;
@@ -169,13 +170,13 @@ public class GameZone extends JPanel {
                         inventory();
                     }
                     System.out.println(gameOver.endGame());
-                    if (gameOver.endGame()) {
-                        endGameButtons();
-                    }
                     this.remove(block);
                     score();
                     combo();
                     repaint();
+                }
+                if (gameOver.endGame()) {
+                    endGameButtons();
                 }
             }
         } catch (IOException e) {
@@ -325,8 +326,8 @@ public class GameZone extends JPanel {
         JButton continueButton = new JButton("Continue");
         endGameButton.setFont(new Font("Arial", Font.BOLD, 12));
         continueButton.setFont(new Font("Arial", Font.BOLD, 12));
-        endGameButton.setBounds(100, 550, 125, 150);
-        continueButton.setBounds(225, 550, 125, 150);
+        endGameButton.setBounds(100, 680, 125, 50);
+        continueButton.setBounds(225, 680, 125, 50);
         this.add(endGameButton);
         this.add(continueButton);
 
@@ -350,11 +351,17 @@ public class GameZone extends JPanel {
         });
 
         endGameButton.addActionListener(e -> {
-            setScore(0);
+            howManyPlaced = 0;
+            blockCountCombo = 0;
+            score = 0;
+            combo = 1;
             this.remove(endGameButton);
             this.remove(continueButton);
             mainScreen.showCardPanel("GameOver");
+            gameOver.scoreDisplay();
             gameOver.clearBoard();
+            score();
+            combo();
             enableAllComponents();
         });
 
