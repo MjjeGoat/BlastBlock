@@ -6,22 +6,46 @@ import java.util.ArrayList;
 public class GameZone extends JPanel {
     private Box[][] grid = new Box[6][6];
     private ArrayList<Block> blocks = new ArrayList<>();
-    private MainScreen mainScreen;
+    protected MainScreen mainScreen;
     private int score = 0;
     private int combo = 1;
     private int howManyPlaced = 0;
     private int blockCountCombo = 0;
-    private GameOver gameOver;
-    private JLabel scoreLabel = new JLabel("Score: " + score);
-    private JLabel comboLabel = new JLabel("Combo: " + combo);
-    private Player player = new Player();
+    protected GameControl gameControl;
+    protected Player player = new Player();
+    private Shop shop;
+    private GameFeatures gameFeatures;
+
+    public int getBlockCountCombo() {
+        return blockCountCombo;
+    }
+
+    public void setBlockCountCombo(int blockCountCombo) {
+        this.blockCountCombo = blockCountCombo;
+    }
+
+    public int getHowManyPlaced() {
+        return howManyPlaced;
+    }
+
+    public void setHowManyPlaced(int howManyPlaced) {
+        this.howManyPlaced = howManyPlaced;
+    }
+
+    public int getCombo() {
+        return combo;
+    }
+
+    public void setCombo(int combo) {
+        this.combo = combo;
+    }
 
     public void setScore(int score) {
         this.score = score;
     }
 
-    public void setGameOver(GameOver gameOver) {
-        this.gameOver = gameOver;
+    public void setGameOver(GameControl gameControl) {
+        this.gameControl = gameControl;
     }
 
     public int getScore() {
@@ -39,9 +63,9 @@ public class GameZone extends JPanel {
     private ArrayList<Point> points = new ArrayList<>();
 
     public GameZone(MainScreen mainScreen) {
-
+        gameFeatures = new GameFeatures(this);
         this.mainScreen = mainScreen;
-        this.setPreferredSize(new Dimension(450, 800));
+        this.setSize(new Dimension(mainScreen.getWidth(), mainScreen.getHeight()));
         this.setBackground(Color.black);
         this.setLayout(null);
         this.setDoubleBuffered(true);
@@ -51,9 +75,10 @@ public class GameZone extends JPanel {
             }
         }
         inventory();
-        menuButton();
-        score();
-        combo();
+        gameFeatures.menuButton();
+        gameFeatures.score();
+        gameFeatures.combo();
+        gameFeatures.highScore();
     }
 
     public void preview(Block block, int pixelX, int pixelY) {
@@ -107,7 +132,7 @@ public class GameZone extends JPanel {
 
 
         boolean placed = false;
-
+        gameFeatures.highScore();
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/blocks/" + block.getType()));
             String line;
@@ -155,11 +180,12 @@ public class GameZone extends JPanel {
                 }
 
                 if (placed) {
+                    player.setHighscore(score);
                     howManyPlaced++;
                     blockCountCombo++;
-                    checkIfAll();
-                    if (allClear()) {
-                        setScore(score + 500);
+                    gameControl.checkIfAll();
+                    if (gameControl.allClear()) {
+                        setScore(score + (500*combo));
                     }
                     if (blockCountCombo == 3) {
                         combo = 1;
@@ -169,14 +195,16 @@ public class GameZone extends JPanel {
                         blocks.clear();
                         inventory();
                     }
-                    System.out.println(gameOver.endGame());
+                    this.blocks.remove(block);
                     this.remove(block);
-                    score();
-                    combo();
+                    gameFeatures.score();
+                    gameFeatures.combo();
                     repaint();
                 }
-                if (gameOver.endGame()) {
-                    endGameButtons();
+                if (gameControl.endGame()) {
+                    player.countMoney(this);
+                    player.setHighscore(score);
+                    gameFeatures.endGameButtons();
                 }
             }
         } catch (IOException e) {
@@ -188,7 +216,7 @@ public class GameZone extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        int cellSize = grid[0][0].getWidth();
+        int cellSize = (int) (mainScreen.getWidth() * 0.115);
         int totalWidth = 6 * cellSize;
         int totalHeight = 6 * cellSize;
         int startX = (getWidth() - totalWidth) / 2;
@@ -223,160 +251,4 @@ public class GameZone extends JPanel {
         this.repaint();
     }
 
-
-    public void checkIfAll() {
-        ArrayList<Point> willBeDeleted = new ArrayList<>();
-        ImageIcon box = new ImageIcon("src/res/box.png");
-        for (int row = 0; row < 6; row++) {
-            boolean fullRow = true;
-            for (int col = 0; col < 6; col++) {
-                if (!grid[row][col].isOn()) {
-                    fullRow = false;
-                    break;
-                }
-            }
-
-            if (fullRow) {
-                for (int col = 0; col < 6; col++) {
-                    willBeDeleted.add(new Point(row, col));
-                }
-                blockCountCombo = 0;
-                setScore(score + (100 * combo));
-                combo = combo + 1;
-            }
-        }
-
-        for (int col = 0; col < 6; col++) {
-            boolean fullCol = true;
-            for (int row = 0; row < 6; row++) {
-                if (!grid[row][col].isOn()) {
-                    fullCol = false;
-                    break;
-                }
-            }
-
-            if (fullCol) {
-                for (int row = 0; row < 6; row++) {
-                    willBeDeleted.add(new Point(row, col));
-                }
-                blockCountCombo = 0;
-                setScore(score + (100 * combo));
-                combo = combo + 1;
-            }
-        }
-
-        for (int i = 0; i < willBeDeleted.size(); i++) {
-            grid[willBeDeleted.get(i).x][willBeDeleted.get(i).y].setOn(false);
-            grid[willBeDeleted.get(i).x][willBeDeleted.get(i).y].setImageb(box);
-        }
-        willBeDeleted.clear();
-        repaint();
-    }
-
-    public boolean allClear() {
-        boolean result = true;
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 6; j++) {
-                if (grid[i][j].isOn()) {
-                    result = false;
-                }
-            }
-        }
-        if (result) {
-            return true;
-        }else {
-            return false;
-        }
-    }
-
-
-    private void menuButton() {
-        ImageIcon menu = new ImageIcon("src/res/MainMenu.png");
-        ImageIcon resized = new ImageIcon(menu.getImage().getScaledInstance(100, 75, Image.SCALE_DEFAULT));
-        JButton menuBut = new JButton(resized);
-        menuBut.setBounds(350, 0, 100, 75);
-        this.add(menuBut);
-
-        menuBut.addActionListener(e -> {
-            mainScreen.showCardPanel("MainMenu");
-        });
-    }
-
-    public void score() {
-        scoreLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        scoreLabel.setVerticalAlignment(SwingConstants.CENTER);
-        scoreLabel.setBounds(0, 0, 200, 75);
-        scoreLabel.setText("Score: " + score);
-        scoreLabel.setForeground(Color.white);
-        this.add(scoreLabel);
-    }
-    public void combo() {
-        comboLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        comboLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        comboLabel.setVerticalAlignment(SwingConstants.CENTER);
-        comboLabel.setBounds(0, 20, 200, 75);
-        comboLabel.setText("Combo: " + combo);
-        comboLabel.setForeground(Color.white);
-        this.add(comboLabel);
-    }
-
-    public void endGameButtons() {
-        JButton endGameButton = new JButton("End Game");
-        JButton continueButton = new JButton("Continue");
-        endGameButton.setFont(new Font("Arial", Font.BOLD, 12));
-        continueButton.setFont(new Font("Arial", Font.BOLD, 12));
-        endGameButton.setBounds(100, 680, 125, 50);
-        continueButton.setBounds(225, 680, 125, 50);
-        this.add(endGameButton);
-        this.add(continueButton);
-
-        blockOtherComponents(endGameButton,continueButton);
-
-        continueButton.addActionListener(e -> {
-            this.remove(continueButton);
-            this.remove(endGameButton);
-            inventory();
-            ImageIcon box = new ImageIcon("src/res/box.png");
-            for (int j = 0; j < 6; j++) {
-                for (int k = 0; k < 6; k++) {
-                    grid[j][k].setOn(false);
-                    grid[j][k].setImageb(box);
-                }
-            }
-            for (Block block : blocks) {
-                this.remove(block);
-            }
-            enableAllComponents();
-        });
-
-        endGameButton.addActionListener(e -> {
-            howManyPlaced = 0;
-            blockCountCombo = 0;
-            score = 0;
-            combo = 1;
-            this.remove(endGameButton);
-            this.remove(continueButton);
-            mainScreen.showCardPanel("GameOver");
-            gameOver.scoreDisplay();
-            gameOver.clearBoard();
-            score();
-            combo();
-            enableAllComponents();
-        });
-
-    }
-
-    public void blockOtherComponents(JButton button,JButton button2) {
-        for (Component component : getComponents()) {
-            if (component != button&& component != button2) {
-                component.setEnabled(false);
-            }
-        }
-    }
-    public void enableAllComponents() {
-        for (Component component : getComponents()) {
-            component.setEnabled(true);
-        }
-    }
 }

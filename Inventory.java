@@ -10,22 +10,43 @@ public class Inventory extends JPanel {
         this.gameZone = gameZone;
         this.setLayout(null);
         this.setBackground(Color.GRAY);
-        this.setBounds(75,575,300,100);
+
+        int width = (int) (gameZone.getWidth() * 0.6667);
+        int height = (int) (gameZone.getHeight() * 0.125);
+        int x = (int) (gameZone.getWidth() * 0.166666667);
+        int y = (int) (gameZone.getHeight() * 0.72875);
+
+
+        this.setSize(width, height);
+        this.setBounds(x, y, width, height);
         gameZone.getBlocks().clear();
         fillInv();
     }
 
     public void fillInv(){
-     Random rd = new Random();
+        Random rd = new Random();
+
+        int invX = this.getX();
+        int invY = this.getY();
+        int invWidth = this.getWidth();
+        int invHeight = this.getHeight();
+
+        int blockWidth = (int) (invWidth * 0.2);
+        int blockHeight = (int) (invHeight * 0.8);
+        int spacing = (invWidth - 3 * blockWidth) / 4;
+
         for (int i = 0; i < 3; i++) {
             int type = rd.nextInt(12);
-            Block block  = new Block(type,gameZone);
+            Block block = new Block(type, gameZone);
             block.loadShapeFromFile();
-            block.setBounds(i*100,0,100,100);
-            block.setLocation(75 + i * 100, 575);
+
+            int x = invX + spacing + i * (blockWidth + spacing);
+            int y = invY + (invHeight - blockHeight) / 2;
+
+            block.setBounds(x, y, blockWidth, blockHeight);
+
             gameZone.getBlocks().add(block);
             gameZone.add(block);
-            gameZone.repaint();
         }
     }
 }

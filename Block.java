@@ -12,8 +12,6 @@ public class Block extends JPanel {
     private int type;
     private Point initialClick;
     private GameZone gameZone;
-    private int width = 15;
-    private int height = 15;
     private ArrayList<String[]> shape = new ArrayList<>();
 
     public Block(int type, GameZone gameZone) {
@@ -31,7 +29,6 @@ public class Block extends JPanel {
 
             public void mouseReleased(MouseEvent e) {
                 gameZone.placeBlock(Block.this, getX(), getY());
-                gameZone.getBlocks().remove(Block.this);
             }
         });
 
@@ -52,11 +49,14 @@ public class Block extends JPanel {
         super.paintComponent(g);
         ImageIcon icon = new ImageIcon("src/res/part.png");
 
+        int width = (int) (gameZone.getWidth() * 0.04275);
+        int height = (int) (gameZone.getWidth() * 0.04275);
+
         for (int r = 0; r < shape.size(); r++) {
             String[] row = shape.get(r);
             for (int c = 0; c < row.length; c++) {
                 if (Integer.parseInt(row[c]) == 1) {
-                    g.drawImage(icon.getImage(), (width * c) + width, (height * r) + height, width, height, this);
+                    g.drawImage(icon.getImage(), (width * c), (height * r), width, height, this);
                 }
             }
         }
@@ -76,6 +76,10 @@ public class Block extends JPanel {
 
     public ArrayList<String[]> getShape() {
         return shape;
+    }
+
+    public void backToInventory(){
+        if (this.getX()>0){}
     }
 
     public int getType() {

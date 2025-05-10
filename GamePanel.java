@@ -3,14 +3,16 @@ import java.awt.*;
 
 public class GamePanel extends JPanel {
 
-    MainScreen mainScreen;
+    private MainScreen mainScreen;
+    private Shop shop;
 
-    public GamePanel(MainScreen mainScreen) {
+    public GamePanel(MainScreen mainScreen,Shop shop) {
+        this.shop = shop;
         this.mainScreen = mainScreen;
-        this.setPreferredSize(new Dimension(450, 800));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.setLayout(null);
+        this.setSize(new Dimension(mainScreen.getWidth(), mainScreen.getHeight()));
 
         startButton();
         shopButton();
@@ -19,16 +21,16 @@ public class GamePanel extends JPanel {
 
 
     private void startButton() {
-        int buttonWidth = 200;
-        int buttonHeight = 80;
+        int buttonWidth = (int) (mainScreen.getWidth() * 0.44);
+        int buttonHeight = (int) (mainScreen.getHeight()*0.1);
 
         ImageIcon icon = new ImageIcon("src/res/PlayBut.png");
-        ImageIcon resized = new ImageIcon(icon.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_DEFAULT));
+        ImageIcon resized = new ImageIcon(icon.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH));
 
-        JButton play = new JButton(resized);
+        JButton play = new JButton();
         play.setBackground(Color.white);
-        play.setBounds((450 - buttonWidth) / 2, 450, buttonWidth, buttonHeight);
-        play.setIcon(icon);
+        play.setBounds((mainScreen.getWidth() - buttonWidth) / 2, (int) (mainScreen.getHeight()*0.5625), buttonWidth, buttonHeight);
+        play.setIcon(resized);
 
 
         play.addActionListener(e -> {
@@ -39,36 +41,38 @@ public class GamePanel extends JPanel {
     }
 
     private void shopButton() {
-        int buttonWidth = 200;
-        int buttonHeight = 80;
+        int buttonWidth = (int) (mainScreen.getWidth() * 0.44);
+        int buttonHeight = (int) (mainScreen.getHeight() * 0.1);
+
 
         ImageIcon icon = new ImageIcon("src/res/Shop.png");
-        ImageIcon resized = new ImageIcon(icon.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_DEFAULT));
+        ImageIcon resized = new ImageIcon(icon.getImage().getScaledInstance((int) buttonWidth, (int) buttonHeight, Image.SCALE_SMOOTH));
 
-        JButton play = new JButton(resized);
+        JButton play = new JButton();
         play.setBackground(Color.white);
-        play.setBounds((450 - buttonWidth) / 2, 550, buttonWidth, buttonHeight);
-        play.setIcon(icon);
+        play.setBounds(((mainScreen.getWidth() - buttonWidth) / 2), (int) (mainScreen.getHeight()*0.6875),buttonWidth,buttonHeight);
+        play.setIcon(resized);
 
 
         play.addActionListener(e -> {
             mainScreen.showCardPanel("Shop");
+            shop.moneyShow();
         });
 
         this.add(play);
     }
 
     private void exitButton() {
-        int buttonWidth = 200;
-        int buttonHeight = 80;
+        int buttonWidth = (int) (mainScreen.getWidth() * 0.44);
+        int buttonHeight = (int) (mainScreen.getHeight() * 0.1);
 
         ImageIcon icon = new ImageIcon("src/res/Exit.png");
-        ImageIcon resized = new ImageIcon(icon.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_DEFAULT));
+        ImageIcon resized = new ImageIcon(icon.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH));
 
-        JButton play = new JButton(resized);
+        JButton play = new JButton();
         play.setBackground(Color.white);
-        play.setBounds((450 - buttonWidth) / 2, 650, buttonWidth, buttonHeight);
-        play.setIcon(icon);
+        play.setBounds((mainScreen.getWidth() - buttonWidth) / 2, (int) (mainScreen.getHeight()*0.8125), buttonWidth, buttonHeight);
+        play.setIcon(resized);
 
 
         play.addActionListener(e -> {
@@ -82,8 +86,10 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         ImageIcon logo = new ImageIcon("src/res/Logo.png");
-        int x = (this.getWidth() - logo.getIconWidth()) / 2;
-        int y = (this.getHeight() - logo.getIconHeight()) / 2;
-        g.drawImage(logo.getImage(), 75, 200, 300, 300, null);
+        int width = (int) (mainScreen.getWidth()*0.66);
+        int height = (int) (mainScreen.getHeight()*0.375);
+        int x = (int) ((this.getWidth() - width) / 2);
+        int y = (int) ((this.getHeight() -height) / 2.5);
+        g.drawImage(logo.getImage(), x, y, width, height, null);
     }
 }
