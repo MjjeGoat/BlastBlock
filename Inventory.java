@@ -12,7 +12,7 @@ public class Inventory extends JPanel {
         this.setBackground(Color.GRAY);
 
         int width = (int) (gameZone.getWidth() * 0.6667);
-        int height = (int) (gameZone.getHeight() * 0.125);
+        int height = (int) (gameZone.getHeight() * 0.1);
         int x = (int) (gameZone.getWidth() * 0.166666667);
         int y = (int) (gameZone.getHeight() * 0.72875);
 
@@ -44,6 +44,7 @@ public class Inventory extends JPanel {
             int y = invY + (invHeight - blockHeight) / 2;
 
             block.setBounds(x, y, blockWidth, blockHeight);
+            block.setStart(new Point(x, y));
 
             gameZone.getBlocks().add(block);
             gameZone.add(block);

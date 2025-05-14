@@ -8,6 +8,7 @@ public class MainScreen extends JFrame {
     private ImageIcon logo = new ImageIcon("src/res/Logo.png");
     protected int frameHeight;
     protected int frameWidth;
+    protected PriceList priceList;
 
     public MainScreen() {
         setTitle("BlastBlock");
@@ -41,16 +42,18 @@ public class MainScreen extends JFrame {
         GamePanel gamePanel = new GamePanel(this,shop);
         GameControl gameControl = new GameControl(gameZone, this);
         gameZone.setGameOver(gameControl);
+        priceList = new PriceList(player,this);
 
         cardPanel.add(gamePanel, "MainMenu");
         cardPanel.add(gameZone, "GameZone");
         cardPanel.add(shop, "Shop");
         cardPanel.add(gameControl, "GameControl");
+        cardPanel.add(priceList, "PriceList");
 
-        add(cardPanel);
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
+        this.add(cardPanel);
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
 
         System.out.println("Frame size: " + frameWidth + "x" + frameHeight);
     }

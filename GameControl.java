@@ -20,13 +20,10 @@ public class GameControl extends JPanel {
 
     public void scoreDisplay() {
         finalScore = zone.getScore();
-
         int width = (int) (mainScreen.getWidth() * 0.6);
         int height = (int) (mainScreen.getHeight() * 0.3);
         int x = (mainScreen.getWidth() - width)/ 2;
         int y = (int) ((mainScreen.getHeight() - height)/ 1.5);
-
-
         if (scoreLabel == null) {
             scoreLabel = new JLabel("Score: " + finalScore);
             scoreLabel.setForeground(Color.WHITE);

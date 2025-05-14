@@ -3,8 +3,31 @@ import java.io.*;
 public class Player {
     private double money;
     private double multiplier;
-    private int reroll;
+    private int rerolls;
     private int highscore;
+    private int continueCount;
+
+    public int getContinueCount() {
+        try (BufferedReader br = new BufferedReader(new FileReader("src/player/continueCount"))) {
+            String line = br.readLine();
+            if (line != null && line.startsWith("continueCount:")) {
+                continueCount = Integer.parseInt(line.substring(14));
+            }
+        } catch (IOException | NumberFormatException e) {
+            continueCount = 0;
+        }
+        return continueCount;
+    }
+
+    public void setContinueCount(int amount) {
+        int current = getContinueCount();
+        continueCount = current + amount;
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/player/continueCount"))) {
+            bw.write("continueCount:" + continueCount);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public int getHighscore() {
         try (BufferedReader br = new BufferedReader(new FileReader("src/player/highScore"))) {
@@ -27,24 +50,29 @@ public class Player {
                 throw new RuntimeException(e);
             }
         }
-
     }
 
     public int getReroll() {
         try (BufferedReader br = new BufferedReader(new FileReader("src/player/rerolls"))) {
             String line = br.readLine();
             if (line != null && line.startsWith("reroll:")) {
-                reroll = Integer.parseInt(line.substring(8));
+                rerolls = Integer.parseInt(line.substring(7));
             }
         } catch (IOException | NumberFormatException e) {
-            reroll = 0;
+            rerolls = 0;
         }
-        return reroll;
+        return rerolls;
     }
 
-    public void setReroll(int reroll) {
-        this.reroll = reroll + this.reroll;
-
+    public void setReroll(int amount) {
+        int current = getReroll();
+        System.out.println(current);
+        rerolls = current + amount;
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/player/rerolls"))) {
+            bw.write("reroll:" + rerolls);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public double getMoney() {
@@ -75,13 +103,14 @@ public class Player {
                 multiplier = Double.parseDouble(line.substring(11));
             }
         } catch (IOException | NumberFormatException e) {
-            multiplier = 1.0;
+            multiplier = 0.1;
         }
         return multiplier;
     }
 
     public void setMultiplier(double value) {
-        multiplier = value;
+        double current = getMultiplier();
+        double multiplier = current + value;
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/player/multiplier"))) {
             bw.write("multiplier:" + multiplier);
         } catch (IOException e) {
@@ -93,5 +122,24 @@ public class Player {
         double score = zone.getScore();
         double total = getMoney() + (getMultiplier() * score);
         setMoney(total);
+    }
+
+    public void newFiles() {
+        fileCreator("src/player/money", "money:0");
+        fileCreator("src/player/multiplier", "multiplier:0.1");
+        fileCreator("src/player/rerolls", "reroll:0");
+        fileCreator("src/player/highScore", "highscore:0");
+        fileCreator("src/player/continueCount", "continueCount:0");
+    }
+
+    private void fileCreator(String fileName, String text) {
+        File file = new File(fileName);
+        if (!file.exists()) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+                bw.write(text);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -13,6 +13,7 @@ public class Block extends JPanel {
     private Point initialClick;
     private GameZone gameZone;
     private ArrayList<String[]> shape = new ArrayList<>();
+    private Point start;
 
     public Block(int type, GameZone gameZone) {
         this.type = type;
@@ -28,6 +29,7 @@ public class Block extends JPanel {
             }
 
             public void mouseReleased(MouseEvent e) {
+                returnToInventory();
                 gameZone.placeBlock(Block.this, getX(), getY());
             }
         });
@@ -62,6 +64,11 @@ public class Block extends JPanel {
         }
     }
 
+    public void setStart(Point start) {
+        this.start = start;
+        setLocation(start);
+    }
+
     public void loadShapeFromFile() {
         shape.clear();
         try (BufferedReader br = new BufferedReader(new FileReader("src/blocks/" + type))) {
@@ -78,11 +85,14 @@ public class Block extends JPanel {
         return shape;
     }
 
-    public void backToInventory(){
-        if (this.getX()>0){}
-    }
 
     public int getType() {
         return type;
+    }
+
+    public void returnToInventory() {
+        if (getX()> gameZone.getWidth()||getY()> gameZone.getHeight()||getX()<0||getY()<0) {
+            setLocation(start);
+        }
     }
 }

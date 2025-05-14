@@ -64,6 +64,7 @@ public class GameZone extends JPanel {
 
     public GameZone(MainScreen mainScreen) {
         gameFeatures = new GameFeatures(this);
+        player.newFiles();
         this.mainScreen = mainScreen;
         this.setSize(new Dimension(mainScreen.getWidth(), mainScreen.getHeight()));
         this.setBackground(Color.black);
@@ -79,6 +80,7 @@ public class GameZone extends JPanel {
         gameFeatures.score();
         gameFeatures.combo();
         gameFeatures.highScore();
+        gameFeatures.reroll();
     }
 
     public void preview(Block block, int pixelX, int pixelY) {
@@ -132,7 +134,6 @@ public class GameZone extends JPanel {
 
 
         boolean placed = false;
-        gameFeatures.highScore();
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/blocks/" + block.getType()));
             String line;
@@ -157,9 +158,7 @@ public class GameZone extends JPanel {
                 }
                 rowOffset++;
             }
-
             br.close();
-
             if (canPlace) {
                 br = new BufferedReader(new FileReader("src/blocks/" + block.getType()));
                 rowOffset = 0;
@@ -180,7 +179,6 @@ public class GameZone extends JPanel {
                 }
 
                 if (placed) {
-                    player.setHighscore(score);
                     howManyPlaced++;
                     blockCountCombo++;
                     gameControl.checkIfAll();
@@ -204,6 +202,7 @@ public class GameZone extends JPanel {
                 if (gameControl.endGame()) {
                     player.countMoney(this);
                     player.setHighscore(score);
+                    gameFeatures.highScore();
                     gameFeatures.endGameButtons();
                 }
             }

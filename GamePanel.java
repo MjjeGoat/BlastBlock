@@ -46,10 +46,11 @@ public class GamePanel extends JPanel {
 
 
         ImageIcon icon = new ImageIcon("src/res/Shop.png");
-        ImageIcon resized = new ImageIcon(icon.getImage().getScaledInstance((int) buttonWidth, (int) buttonHeight, Image.SCALE_SMOOTH));
+        ImageIcon resized = new ImageIcon(icon.getImage().getScaledInstance((int) buttonWidth/2, (int) buttonHeight/2, Image.SCALE_SMOOTH));
 
         JButton play = new JButton();
-        play.setBackground(Color.white);
+        play.setBackground(Color.BLACK);
+        play.setContentAreaFilled(false);
         play.setBounds(((mainScreen.getWidth() - buttonWidth) / 2), (int) (mainScreen.getHeight()*0.6875),buttonWidth,buttonHeight);
         play.setIcon(resized);
 
