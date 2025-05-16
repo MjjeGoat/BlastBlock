@@ -169,7 +169,20 @@ public class GameZone extends JPanel {
                             int gridRow = baseRow + rowOffset;
                             int gridCol = baseCol + colOffset;
                             grid[gridRow][gridCol].setOn(true);
-                            grid[gridRow][gridCol].setImageb(new ImageIcon("src/res/part.png"));
+
+                            String skin = player.getCurSkin();
+
+                            if (skin == null || skin.isEmpty()) {
+                                grid[gridRow][gridCol].setImageb(new ImageIcon("src/res/part.png"));
+                            } else {
+                                File skinFile = new File("src/skins/" + skin + "/tile_" + gridRow + "_" + gridCol + ".png");
+                                if (!skinFile.exists() || skinFile.length() == 0) {
+                                    grid[gridRow][gridCol].setImageb(new ImageIcon("src/res/part.png"));
+                                } else {
+                                    grid[gridRow][gridCol].setImageb(new ImageIcon(skinFile.getPath()));
+                                }
+                            }
+
                             points.clear();
                             placed = true;
                             repaint();
@@ -183,7 +196,7 @@ public class GameZone extends JPanel {
                     blockCountCombo++;
                     gameControl.checkIfAll();
                     if (gameControl.allClear()) {
-                        setScore(score + (500*combo));
+                        setScore(score + (500 * combo));
                     }
                     if (blockCountCombo == 3) {
                         combo = 1;

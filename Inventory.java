@@ -36,7 +36,7 @@ public class Inventory extends JPanel {
         int spacing = (invWidth - 3 * blockWidth) / 4;
 
         for (int i = 0; i < 3; i++) {
-            int type = rd.nextInt(12);
+            int type = rd.nextInt(18);
             Block block = new Block(type, gameZone);
             block.loadShapeFromFile();
 

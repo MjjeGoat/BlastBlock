@@ -37,7 +37,6 @@ public class PriceList extends JPanel {
         JButton shopBut = new JButton(resized);
         shopBut.setBackground(Color.BLACK);
         shopBut.setBounds(x, y, width, height);
-        shopBut.setContentAreaFilled(false);
         this.add(shopBut);
 
         shopBut.addActionListener(e -> {

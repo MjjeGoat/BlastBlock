@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.TreeSet;
 
 public class Player {
     private double money;
@@ -6,6 +7,59 @@ public class Player {
     private int rerolls;
     private int highscore;
     private int continueCount;
+    private String curSkin;
+
+    public int getRerolls() {
+        return rerolls;
+    }
+
+    public void setRerolls(int rerolls) {
+        this.rerolls = rerolls;
+    }
+
+    public void addSkin(String skin) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("src/player/ownedSkins",true));
+            writer.write(skin);
+            writer.newLine();
+            writer.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public TreeSet<String> getOwnedSkins() {
+        TreeSet<String> ownedSkins = new TreeSet<>();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("src/player/ownedSkins"));
+            String line;
+            while ((line = br.readLine()) != null){
+                ownedSkins.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return ownedSkins;
+    }
+
+    public String getCurSkin() {
+        try (BufferedReader br = new BufferedReader(new FileReader("src/player/currentSkin"))) {
+            String line = br.readLine();
+                curSkin = line;
+        } catch (IOException | NumberFormatException e) {
+            curSkin = "";
+        }
+        return curSkin;
+    }
+
+    public void setCurSkin(String curSkin) {
+        this.curSkin = curSkin;
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/player/currentSkin"))) {
+            bw.write(curSkin);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public int getContinueCount() {
         try (BufferedReader br = new BufferedReader(new FileReader("src/player/continueCount"))) {
@@ -130,6 +184,8 @@ public class Player {
         fileCreator("src/player/rerolls", "reroll:0");
         fileCreator("src/player/highScore", "highscore:0");
         fileCreator("src/player/continueCount", "continueCount:0");
+        fileCreator("src/player/currentSkin","");
+        fileCreator("src/player/ownedSkins","");
     }
 
     private void fileCreator(String fileName, String text) {

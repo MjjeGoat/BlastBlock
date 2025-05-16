@@ -3,6 +3,8 @@ import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Shop extends JPanel {
 
@@ -13,10 +15,13 @@ public class Shop extends JPanel {
     private JButton continueButton;
     private JButton multiplierButton;
     private JButton rerollButton;
+    private JButton skinsButton;
     private JLabel rerollLabel;
     private JLabel continueLabel;
     private JLabel multipilerLabel;
     private JPopupMenu noMoney = new JPopupMenu("You don't have enough money");
+    private JPopupMenu skins = new JPopupMenu();
+    private JPopupMenu ownedSkins = new JPopupMenu();
 
 
     public Shop(MainScreen mainScreen, GameZone gameZone, Player player) {
@@ -33,6 +38,8 @@ public class Shop extends JPanel {
         buyReroll();
         buyMultiplier();
         buyContinue();
+        buySkins();
+        equipSkin();
     }
 
     private void priceShow() {
@@ -44,7 +51,6 @@ public class Shop extends JPanel {
         ImageIcon resized = new ImageIcon(menu.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
         JButton menuBut = new JButton(resized);
         menuBut.setBackground(Color.black);
-        menuBut.setContentAreaFilled(false);
         menuBut.setBounds(x, y, width, height);
         this.add(menuBut);
 
@@ -173,6 +179,63 @@ public class Shop extends JPanel {
         });
     }
 
+    public void buySkins(){
+        ImageIcon buyRerollIcon = new ImageIcon("src/res/Buy.png");
+        ImageIcon resized = new ImageIcon(buyRerollIcon.getImage().getScaledInstance((int) (gameZone.getWidth() * 0.222), (int) (gameZone.getHeight() * 0.125), Image.SCALE_SMOOTH));
+        skinsButton = new JButton(resized);
+        skinsButton.setBounds((int) (gameZone.getWidth() * 0.45), (int) (gameZone.getHeight() * 0.6), (int) (gameZone.getWidth() * 0.222), (int) (gameZone.getHeight() * 0.125));
+        this.add(skinsButton);
+
+        skinsButton.addActionListener(e -> {
+            String[] availableSkins = {"bazilisek", "mrazak", "buko", "hever"};
+            skins.removeAll();
+
+            for (String skinName : availableSkins) {
+                if (!player.getOwnedSkins().contains(skinName)) {
+                    JMenuItem item = new JMenuItem("Buy: " + skinName);
+                    item.addActionListener(ev -> {
+                        if (player.getMoney() > 150000) {
+                            player.setMoney(player.getMoney() - 150000);
+                            player.addSkin(skinName);
+                            moneyShow();
+                        } else {
+                            JMenuItem msg = new JMenuItem("You don't have enough money");
+                            msg.setEnabled(false);
+                            noMoney.removeAll();
+                            noMoney.add(msg);
+                            noMoney.show(skinsButton, 0, skinsButton.getHeight());
+                        }
+                    });
+                    skins.add(item);
+                }
+            }
+            skins.show(skinsButton, 0, skinsButton.getHeight());
+        });
+    }
+
+    public void equipSkin(){
+        ImageIcon buyRerollIcon = new ImageIcon("src/res/equipSkin.png");
+        ImageIcon resized = new ImageIcon(buyRerollIcon.getImage().getScaledInstance((int) (gameZone.getWidth() * 0.8), (int) (gameZone.getHeight() * 0.125), Image.SCALE_SMOOTH));
+
+        JButton equipSkinButton = new JButton(resized);
+        equipSkinButton.setBounds((int) (gameZone.getWidth() * 0.1), (int) (gameZone.getHeight() * 0.75), (int) (gameZone.getWidth() * 0.8), (int) (gameZone.getHeight() * 0.125));
+
+        this.add(equipSkinButton);
+        equipSkinButton.addActionListener(e -> {
+            ownedSkins.removeAll();
+            for (String skinName : player.getOwnedSkins()) {
+                if (player.getOwnedSkins().contains(skinName)) {
+                    JMenuItem item = new JMenuItem("Equip: " + skinName);
+                    item.addActionListener(ev -> {
+                        player.setCurSkin(skinName);
+                    });
+                    ownedSkins.add(item);
+                }
+            }
+            ownedSkins.show(equipSkinButton, 0, equipSkinButton.getHeight());
+        });
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -188,5 +251,8 @@ public class Shop extends JPanel {
         ImageIcon resContinueCount = new ImageIcon(continueCount.getImage().getScaledInstance((int) (gameZone.getWidth() * 0.2222), (int) (gameZone.getHeight() * 0.125), Image.SCALE_SMOOTH));
         g.drawImage(resContinueCount.getImage(), (int) (gameZone.getWidth() * 0.2), (int) (gameZone.getHeight() * 0.45), this);
 
+        ImageIcon skins = new ImageIcon("src/res/skins.png");
+        ImageIcon resSkins = new ImageIcon(skins.getImage().getScaledInstance((int) (gameZone.getWidth() * 0.2222), (int) (gameZone.getHeight() * 0.125), Image.SCALE_SMOOTH));
+        g.drawImage(resSkins.getImage(), (int) (gameZone.getWidth() * 0.2), (int) (gameZone.getHeight() * 0.6), this);
     }
 }
