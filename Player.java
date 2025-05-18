@@ -1,6 +1,12 @@
 import java.io.*;
 import java.util.TreeSet;
 
+
+/**
+ * Represents a player in the game, storing persistent data such as money,
+ * multiplier, highscore, rerolls, continue count, and owned skins.
+ * Data is saved and loaded from local text files in the {@code src/player} directory.
+ */
 public class Player {
     private double money;
     private double multiplier;
@@ -9,14 +15,10 @@ public class Player {
     private int continueCount;
     private String curSkin;
 
-    public int getRerolls() {
-        return rerolls;
-    }
-
-    public void setRerolls(int rerolls) {
-        this.rerolls = rerolls;
-    }
-
+    /**
+     * Adds a skin name to the owned skins file.
+     * @param skin name of the skin to add
+     */
     public void addSkin(String skin) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("src/player/ownedSkins",true));
@@ -28,6 +30,10 @@ public class Player {
         }
     }
 
+    /**
+     * Returns a set of skin names owned by the player.
+     * @return TreeSet of owned skin names
+     */
     public TreeSet<String> getOwnedSkins() {
         TreeSet<String> ownedSkins = new TreeSet<>();
         try {
@@ -42,6 +48,10 @@ public class Player {
         return ownedSkins;
     }
 
+    /**
+     * Gets the name of the skin from file which is player using.
+     * @return skin name which is player using.
+     */
     public String getCurSkin() {
         try (BufferedReader br = new BufferedReader(new FileReader("src/player/currentSkin"))) {
             String line = br.readLine();
@@ -52,6 +62,10 @@ public class Player {
         return curSkin;
     }
 
+    /**
+     * Sets the skin name , which is player using, and saves it to file.
+     * @param curSkin the name of the skin player is going to use.
+     */
     public void setCurSkin(String curSkin) {
         this.curSkin = curSkin;
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/player/currentSkin"))) {
@@ -61,6 +75,10 @@ public class Player {
         }
     }
 
+    /**
+     * Gets the total number of continues from file.
+     * @return continue count
+     */
     public int getContinueCount() {
         try (BufferedReader br = new BufferedReader(new FileReader("src/player/continueCount"))) {
             String line = br.readLine();
@@ -73,6 +91,10 @@ public class Player {
         return continueCount;
     }
 
+    /**
+     * Adds a specified amount to the continue count and saves it into file.
+     * @param amount number of continues to add
+     */
     public void setContinueCount(int amount) {
         int current = getContinueCount();
         continueCount = current + amount;
@@ -83,6 +105,10 @@ public class Player {
         }
     }
 
+    /**
+     * Reads and returns the high score from file.
+     * @return high score
+     */
     public int getHighscore() {
         try (BufferedReader br = new BufferedReader(new FileReader("src/player/highScore"))) {
             String line = br.readLine();
@@ -95,6 +121,10 @@ public class Player {
         return highscore;
     }
 
+    /**
+     * Updates the high score only if the new score is higher than the current one.
+     * @param highscore new score to consider
+     */
     public void setHighscore(int highscore) {
         if (highscore > getHighscore()){
             this.highscore = highscore;
@@ -106,6 +136,10 @@ public class Player {
         }
     }
 
+    /**
+     * Reads and returns the numbers of reroll from file.
+     * @return number of rerolls
+     */
     public int getReroll() {
         try (BufferedReader br = new BufferedReader(new FileReader("src/player/rerolls"))) {
             String line = br.readLine();
@@ -118,6 +152,10 @@ public class Player {
         return rerolls;
     }
 
+    /**
+     * Adds a specified amount to the reroll count and saves it to file.
+     * @param amount number of rerolls to add
+     */
     public void setReroll(int amount) {
         int current = getReroll();
         System.out.println(current);
@@ -129,6 +167,10 @@ public class Player {
         }
     }
 
+    /**
+     * Gets the current money amount from file.
+     * @return amount of money
+     */
     public double getMoney() {
         try (BufferedReader br = new BufferedReader(new FileReader("src/player/money"))) {
             String line = br.readLine();
@@ -141,6 +183,10 @@ public class Player {
         return money;
     }
 
+    /**
+     * Sets the money value and saves it to file.
+     * @param amount the new amount of money
+     */
     public void setMoney(double amount) {
         money = amount;
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/player/money"))) {
@@ -150,6 +196,10 @@ public class Player {
         }
     }
 
+    /**
+     * Gets the current multiplier from file.
+     * @return multiplier value
+     */
     public double getMultiplier() {
         try (BufferedReader br = new BufferedReader(new FileReader("src/player/multiplier"))) {
             String line = br.readLine();
@@ -162,6 +212,10 @@ public class Player {
         return multiplier;
     }
 
+    /**
+     * Adds the given value to the current multiplier and saves it to file.
+     * @param value multiplier to add
+     */
     public void setMultiplier(double value) {
         double current = getMultiplier();
         double multiplier = current + value;
@@ -172,12 +226,19 @@ public class Player {
         }
     }
 
+    /**
+     * Calculates and adds money based on the current score and multiplier.
+     * @param zone the current game zone to retrieve score from
+     */
     public void countMoney(GameZone zone) {
         double score = zone.getScore();
         double total = getMoney() + (getMultiplier() * score);
         setMoney(total);
     }
 
+    /**
+     * Creates new data files for all player stats if they do not already exist.
+     */
     public void newFiles() {
         fileCreator("src/player/money", "money:0");
         fileCreator("src/player/multiplier", "multiplier:0.1");
@@ -188,6 +249,11 @@ public class Player {
         fileCreator("src/player/ownedSkins","");
     }
 
+    /**
+     * Helper method to create a file with default text if it does not exist.
+     * @param fileName the path to the file
+     * @param text default content to write into the file
+     */
     private void fileCreator(String fileName, String text) {
         File file = new File(fileName);
         if (!file.exists()) {

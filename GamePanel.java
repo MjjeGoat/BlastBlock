@@ -1,11 +1,21 @@
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * The {@code GamePanel} class represents the main menu screen of the game,
+ * including the Play, Shop, and Exit buttons, as well as the game logo.
+ * It handles transitions between panels and basic menu interaction.
+ */
 public class GamePanel extends JPanel {
 
     private MainScreen mainScreen;
     private Shop shop;
 
+    /**
+     * Constructs a {@code GamePanel} associated with the given {@code MainScreen} and {@code Shop}.
+     *
+     * @param mainScreen the main screen frame managing panel transitions
+     * @param shop the shop panel used to display the in-game shop
+     */
     public GamePanel(MainScreen mainScreen,Shop shop) {
         this.shop = shop;
         this.mainScreen = mainScreen;
@@ -19,7 +29,10 @@ public class GamePanel extends JPanel {
         exitButton();
     }
 
-
+    /**
+     * Creates and adds the Play button to the panel.
+     * When clicked, it transitions to the GameZone panel.
+     */
     private void startButton() {
         int buttonWidth = (int) (mainScreen.getWidth() * 0.44);
         int buttonHeight = (int) (mainScreen.getHeight()*0.1);
@@ -40,6 +53,10 @@ public class GamePanel extends JPanel {
         this.add(play);
     }
 
+    /**
+     * Creates and adds the Shop button to the panel.
+     * When clicked, it transitions to the Shop panel and updates the displayed money.
+     */
     private void shopButton() {
         int buttonWidth = (int) (mainScreen.getWidth() * 0.44);
         int buttonHeight = (int) (mainScreen.getHeight() * 0.1);
@@ -63,6 +80,10 @@ public class GamePanel extends JPanel {
         this.add(play);
     }
 
+    /**
+     * Creates and adds the Exit button to the panel.
+     * When clicked, it closes the app.
+     */
     private void exitButton() {
         int buttonWidth = (int) (mainScreen.getWidth() * 0.44);
         int buttonHeight = (int) (mainScreen.getHeight() * 0.1);
@@ -83,6 +104,11 @@ public class GamePanel extends JPanel {
         this.add(play);
     }
 
+    /**
+     * Paints the game logo image centered near the top of the panel.
+     *
+     * @param g the {@code Graphics} object used for rendering
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

@@ -8,6 +8,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a draggable block composed of smaller parts within a game zone.
+ * Each block has a type determining its shape and interacts with the {@link GameZone}.
+ */
 public class Block extends JPanel {
     private int type;
     private Point initialClick;
@@ -15,6 +19,12 @@ public class Block extends JPanel {
     private ArrayList<String[]> shape = new ArrayList<>();
     private Point start;
 
+    /**
+     * Constructs a Block of a specific type and assigns it to a game zone.
+     *
+     * @param type     The block type, used to load its shape.
+     * @param gameZone The game zone where the block will be placed.
+     */
     public Block(int type, GameZone gameZone) {
         this.type = type;
         this.gameZone = gameZone;
@@ -46,6 +56,11 @@ public class Block extends JPanel {
         });
     }
 
+    /**
+     * Custom painting of the block using an icon for each occupied cell.
+     *
+     * @param g The Graphics object used for painting.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -64,11 +79,20 @@ public class Block extends JPanel {
         }
     }
 
+    /**
+     * Sets the original location from which the block can return if block will be placed outside the screen.
+     *
+     * @param start The point to return to.
+     */
     public void setStart(Point start) {
         this.start = start;
         setLocation(start);
     }
 
+    /**
+     * Loads the block shape from a file based on its type.
+     * Each line in the file represents a row of the block using 1s and 0s.
+     */
     public void loadShapeFromFile() {
         shape.clear();
         try (BufferedReader br = new BufferedReader(new FileReader("src/blocks/" + type))) {
@@ -81,17 +105,30 @@ public class Block extends JPanel {
         }
     }
 
+    /**
+     * Returns the block's shape as a list of string arrays.
+     *
+     * @return A list representing the block's shape.
+     */
     public ArrayList<String[]> getShape() {
         return shape;
     }
 
 
+    /**
+     * Returns the block type.
+     *
+     * @return The type identifier of the block.
+     */
     public int getType() {
         return type;
     }
 
+    /**
+     * Returns the block to its start location if it is dragged outside the screen.
+     */
     public void returnToInventory() {
-        if (getX()> gameZone.getWidth()||getY()> gameZone.getHeight()||getX()<0||getY()<0) {
+        if (getX() > gameZone.getWidth() || getY() > gameZone.getHeight() || getX() < 0 || getY() < 0) {
             setLocation(start);
         }
     }

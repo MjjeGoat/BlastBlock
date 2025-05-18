@@ -3,6 +3,11 @@ import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * A panel that displays prices for various items the player can buy,
+ * such as rerolls, continues, multipliers, and skins.
+ * It also provides a button to navigate back to the Shop panel.
+ */
 public class PriceList extends JPanel {
 
     private Player player;
@@ -16,6 +21,13 @@ public class PriceList extends JPanel {
     private JLabel skin4Price;
     private ArrayList<JLabel> prices = new ArrayList<>();
 
+    /**
+     * Constructs a PriceList panel.
+     * Initializes labels showing prices for each item and adds a shop button.
+     *
+     * @param player     the player whose data is used to calculate prices
+     * @param mainScreen reference to the main application window for sizing.
+     */
     public PriceList(Player player,MainScreen mainScreen) {
         this.mainScreen = mainScreen;
         this.player = player;
@@ -27,6 +39,9 @@ public class PriceList extends JPanel {
 
     }
 
+    /**
+     * Creates and adds a button that navigates to the Shop panel when clicked.
+     */
     private void shopButton() {
         int width = (int) (mainScreen.getWidth() * 0.25);
         int height = (int) (mainScreen.getHeight() * 0.09375);
@@ -44,6 +59,10 @@ public class PriceList extends JPanel {
         });
     }
 
+    /**
+     * Updates the multiplier price label based on the player's current multiplier.
+     * The price is calculated as multiplier * 100000.
+     */
     public void updateMultiplierPrice() {
         double multiplier = player.getMultiplier();
         double price = multiplier * 100000;
@@ -53,6 +72,9 @@ public class PriceList extends JPanel {
         multiplierPrice.repaint();
     }
 
+    /**
+     * Initializes and displays price labels for reroll, continue, multiplier, and skins.
+     */
     public void showPrices() {
         double multiplierPriceValue = player.getMultiplier() * 100000;
         rerollPrice = new JLabel("Reroll Price: 10000");

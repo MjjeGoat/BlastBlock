@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Controls game logic and UI updates during gameplay.
+ * Handles clearing the board, and triggering end-game logic.
+ */
 public class GameControl extends JPanel {
     private ImageIcon menu = new ImageIcon("src/res/MainMenu.png");
     private GameZone zone;
@@ -9,6 +13,12 @@ public class GameControl extends JPanel {
     private JLabel scoreLabel;
     private int finalScore;
 
+    /**
+     * Constructs the GameControl panel with references to the game zone and main screen.
+     *
+     * @param zone       The GameZone object representing the playing area.
+     * @param mainScreen The MainScreen containing UI dimensions.
+     */
     public GameControl(GameZone zone, MainScreen mainScreen) {
         this.zone = zone;
         this.mainScreen = mainScreen;
@@ -18,16 +28,19 @@ public class GameControl extends JPanel {
         menuButton();
     }
 
+    /**
+     * Displays the score label based on the score after game ends.
+     */
     public void scoreDisplay() {
         finalScore = zone.getScore();
         int width = (int) (mainScreen.getWidth() * 0.6);
         int height = (int) (mainScreen.getHeight() * 0.3);
-        int x = (mainScreen.getWidth() - width)/ 2;
-        int y = (int) ((mainScreen.getHeight() - height)/ 1.5);
+        int x = (mainScreen.getWidth() - width) / 2;
+        int y = (int) ((mainScreen.getHeight() - height) / 1.5);
         if (scoreLabel == null) {
             scoreLabel = new JLabel("Score: " + finalScore);
             scoreLabel.setForeground(Color.WHITE);
-            scoreLabel.setFont(new Font("Arial", Font.BOLD, 36));
+            scoreLabel.setFont(new Font("Arial", Font.BOLD, (int) (mainScreen.getWidth() * 0.07)));
             scoreLabel.setBounds(x, y, width, height);
             scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(scoreLabel);
@@ -36,7 +49,11 @@ public class GameControl extends JPanel {
         }
     }
 
-
+    /**
+     * Checks whether the game should end by verifying if any blocks can still be placed.
+     *
+     * @return {@code true} if no blocks can be placed; {@code false} If some block can still be placed.
+     */
     public boolean endGame() {
         for (Block block : zone.getBlocks()) {
             if (canFitAnywhere(block)) {
@@ -46,14 +63,16 @@ public class GameControl extends JPanel {
         return true;
     }
 
+    /**
+     * Checks whether a given block can fit anywhere on the grid.
+     *
+     * @param block The block to be tested.
+     * @return {@code true} if it can fit somewhere; {@code false} If block do not fit inside grid.
+     */
     private boolean canFitAnywhere(Block block) {
         Box[][] grid = zone.getGrid();
         ArrayList<String[]> shape = block.getShape();
         boolean canFitAnywhere = false;
-
-        if (shape == null || shape.isEmpty()){
-            return false;
-        }
 
         int shapeHeight = shape.size();
         int shapeWidth = shape.get(0).length;
@@ -70,6 +89,15 @@ public class GameControl extends JPanel {
         return canFitAnywhere;
     }
 
+    /**
+     * Checks whether a given block shape can be placed at a specific position on the grid.
+     *
+     * @param shape   The 2D shape of the block.
+     * @param baseRow The row index to start placing from.
+     * @param baseCol The column index to start placing from.
+     * @param grid    The current game grid.
+     * @return {@code true} if it can be placed; {@code false} if it can not be placed.
+     */
     private boolean canPlaceShapeAt(ArrayList<String[]> shape, int baseRow, int baseCol, Box[][] grid) {
         for (int r = 0; r < shape.size(); r++) {
             String[] row = shape.get(r);
@@ -87,7 +115,9 @@ public class GameControl extends JPanel {
     }
 
 
-
+    /**
+     * Clears the game board, resets block images and status, and clear inventory.
+     */
     public void clearBoard() {
         ImageIcon box = new ImageIcon("src/res/box.png");
         for (int j = 0; j < 6; j++) {
@@ -100,17 +130,18 @@ public class GameControl extends JPanel {
             zone.remove(block);
         }
         zone.inventory();
-        finalScore = zone.getScore();
         revalidate();
         repaint();
     }
 
+    /**
+     * Creates and adds a menu button to return to the main menu screen.
+     */
     private void menuButton() {
         int width = (int) (mainScreen.getWidth() * 0.25);
         int height = (int) (mainScreen.getHeight() * 0.09375);
         int x = (int) (mainScreen.getWidth() - width);
         int y = 0;
-        ImageIcon menu = new ImageIcon("src/res/MainMenu.png");
         ImageIcon resized = new ImageIcon(menu.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
         JButton menuBut = new JButton(resized);
         menuBut.setBounds(x, y, width, height);
@@ -121,6 +152,10 @@ public class GameControl extends JPanel {
             mainScreen.showCardPanel("MainMenu");
         });
     }
+
+    /**
+     * Checks for any full rows or columns, clears them, and updates the score and combo counter.
+     */
     public void checkIfAll() {
         ArrayList<Point> willBeDeleted = new ArrayList<>();
         ImageIcon box = new ImageIcon("src/res/box.png");
@@ -139,7 +174,7 @@ public class GameControl extends JPanel {
                 }
                 zone.setBlockCountCombo(0);
                 zone.setScore(zone.getScore() + (100 * zone.getCombo()));
-                zone.setCombo(zone.getCombo()+1);
+                zone.setCombo(zone.getCombo() + 1);
             }
         }
 
@@ -158,7 +193,7 @@ public class GameControl extends JPanel {
                 }
                 zone.setBlockCountCombo(0);
                 zone.setScore(zone.getScore() + (100 * zone.getCombo()));
-                zone.setCombo(zone.getCombo()+1);
+                zone.setCombo(zone.getCombo() + 1);
             }
         }
 
@@ -170,6 +205,11 @@ public class GameControl extends JPanel {
         repaint();
     }
 
+    /**
+     * Checks if the entire board is empty.
+     *
+     * @return {@code true} if the board is fully clear; {@code false} otherwise.
+     */
     public boolean allClear() {
         boolean result = true;
         for (int i = 0; i < 6; i++) {
@@ -181,17 +221,22 @@ public class GameControl extends JPanel {
         }
         if (result) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
+    /**
+     * Paints the "Game Over" picture when the game ends.
+     *
+     * @param g The graphics context to draw to.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         ImageIcon gameOverImage = new ImageIcon("src/res/GameOver.png");
 
-        int size = (int) (mainScreen.getWidth()*0.65);
+        int size = (int) (mainScreen.getWidth() * 0.65);
         int x = getWidth() / 2 - size / 2;
         int y = getHeight() / 2 - size / 2;
         g.drawImage(gameOverImage.getImage(), x, y, size, size, this);

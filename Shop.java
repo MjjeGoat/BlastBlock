@@ -1,11 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
+/**
+ * The Shop class represents a GUI panel where the player can buy in-game items such as rerolls,
+ * multipliers, continues, and skins. It displays the player's current money and owned items,
+ * and handles purchase logic with appropriate feedback.
+ */
 public class Shop extends JPanel {
 
     private MainScreen mainScreen;
@@ -24,6 +24,13 @@ public class Shop extends JPanel {
     private JPopupMenu ownedSkins = new JPopupMenu();
 
 
+    /**
+     * Constructs a Shop panel linked to the main screen, game zone, and player.
+     *
+     * @param mainScreen the main screen containing different UI cards
+     * @param gameZone   the game zone panel used for sizing and references
+     * @param player     the player object containing game state and inventory
+     */
     public Shop(MainScreen mainScreen, GameZone gameZone, Player player) {
         this.player = player;
         this.mainScreen = mainScreen;
@@ -42,6 +49,9 @@ public class Shop extends JPanel {
         equipSkin();
     }
 
+    /**
+     * Displays the price list button that shows available item prices when clicked.
+     */
     private void priceShow() {
         int width = (int) (mainScreen.getWidth() * 0.2);
         int height = (int) (mainScreen.getHeight() * 0.09375);
@@ -60,6 +70,9 @@ public class Shop extends JPanel {
         });
     }
 
+    /**
+     * Creates and adds the main menu button which switches the view back to the main menu.
+     */
     private void menuButton() {
         int width = (int) (mainScreen.getWidth() * 0.25);
         int height = (int) (mainScreen.getHeight() * 0.09375);
@@ -76,6 +89,11 @@ public class Shop extends JPanel {
         });
     }
 
+    /**
+     * Displays the player's current amount of money on the shop panel.
+     * If the label does not exist, it creates and adds it.
+     * Updates the text every time it is called.
+     */
     protected void moneyShow() {
         if (moneyLabel == null) {
             moneyLabel = new JLabel();
@@ -88,6 +106,10 @@ public class Shop extends JPanel {
         }
     }
 
+    /**
+     * Creates and adds the reroll purchase button and label.
+     * Handles the buying logic and displays a popup if the player cannot afford the reroll.
+     */
     private void buyReroll() {
         ImageIcon buyRerollIcon = new ImageIcon("src/res/Buy.png");
         ImageIcon resized = new ImageIcon(buyRerollIcon.getImage().getScaledInstance((int) (gameZone.getWidth() * 0.222), (int) (gameZone.getHeight() * 0.125), Image.SCALE_SMOOTH));
@@ -119,6 +141,10 @@ public class Shop extends JPanel {
         });
     }
 
+    /**
+     * Creates and adds the multiplier purchase button and label.
+     * Handles the buying logic and shows a popup if the player cannot afford the multiplier.
+     */
     public void buyMultiplier() {
         ImageIcon buyRerollIcon = new ImageIcon("src/res/Buy.png");
         ImageIcon resized = new ImageIcon(buyRerollIcon.getImage().getScaledInstance((int) (gameZone.getWidth() * 0.222), (int) (gameZone.getHeight() * 0.125), Image.SCALE_SMOOTH));
@@ -149,6 +175,10 @@ public class Shop extends JPanel {
         });
     }
 
+    /**
+     * Creates and adds the continue purchase button and label.
+     * Handles the buying logic and shows a popup if the player cannot afford the continue.
+     */
     public void buyContinue(){
         ImageIcon buyRerollIcon = new ImageIcon("src/res/Buy.png");
         ImageIcon resized = new ImageIcon(buyRerollIcon.getImage().getScaledInstance((int) (gameZone.getWidth() * 0.222), (int) (gameZone.getHeight() * 0.125), Image.SCALE_SMOOTH));
@@ -179,6 +209,11 @@ public class Shop extends JPanel {
         });
     }
 
+    /**
+     * Creates and adds the skins purchase button.
+     * Shows a popup menu listing available skins for purchase.
+     * Handles purchase and shows popup if the player lacks enough money.
+     */
     public void buySkins(){
         ImageIcon buyRerollIcon = new ImageIcon("src/res/Buy.png");
         ImageIcon resized = new ImageIcon(buyRerollIcon.getImage().getScaledInstance((int) (gameZone.getWidth() * 0.222), (int) (gameZone.getHeight() * 0.125), Image.SCALE_SMOOTH));
@@ -213,6 +248,11 @@ public class Shop extends JPanel {
         });
     }
 
+    /**
+     * Creates and adds a button for equipping owned skins.
+     * Shows a popup menu listing owned skins for equipping.
+     * Saves the selected skin to a file and updates the player's current skin.
+     */
     public void equipSkin(){
         ImageIcon buyRerollIcon = new ImageIcon("src/res/equipSkin.png");
         ImageIcon resized = new ImageIcon(buyRerollIcon.getImage().getScaledInstance((int) (gameZone.getWidth() * 0.8), (int) (gameZone.getHeight() * 0.125), Image.SCALE_SMOOTH));
@@ -236,6 +276,11 @@ public class Shop extends JPanel {
         });
     }
 
+    /**
+     * Paints the background images.
+     *
+     * @param g the Graphics context to paint on
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

@@ -1,6 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The {@code MainScreen} class serves as the main window for the game.
+ * It manages different screens using a {@code CardLayout}, including the main menu,
+ * game zone, shop, game control panel, and price list.
+ */
 public class MainScreen extends JFrame {
 
     private CardLayout cardLayout;
@@ -10,6 +15,11 @@ public class MainScreen extends JFrame {
     protected int frameWidth;
     protected PriceList priceList;
 
+    /**
+     * Constructs the main window, initializes layout and all game screens,
+     * and sets up the window size according to the screen dimensions while
+     * preserving the aspect ratio.
+     */
     public MainScreen() {
         setTitle("BlastBlock");
         setIconImage(logo.getImage());
@@ -58,6 +68,11 @@ public class MainScreen extends JFrame {
         System.out.println("Frame size: " + frameWidth + "x" + frameHeight);
     }
 
+    /**
+     * Displays the specified panel (card) in the main window.
+     *
+     * @param cardName the name of the card to show.
+     */
     public void showCardPanel(String cardName) {
         cardLayout.show(cardPanel, cardName);
         repaint();

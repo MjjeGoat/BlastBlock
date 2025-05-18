@@ -3,6 +3,11 @@ import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * {@code GameZone} represents the main gameplay area of the block puzzle game.
+ * It contains the 6x6 grid, block placement logic, score tracking, combo system,
+ * and rendering logic. It handles block previewing, placing, and end game detection.
+ */
 public class GameZone extends JPanel {
     private Box[][] grid = new Box[6][6];
     private ArrayList<Block> blocks = new ArrayList<>();
@@ -15,53 +20,13 @@ public class GameZone extends JPanel {
     protected Player player = new Player();
     private Shop shop;
     private GameFeatures gameFeatures;
-
-    public int getBlockCountCombo() {
-        return blockCountCombo;
-    }
-
-    public void setBlockCountCombo(int blockCountCombo) {
-        this.blockCountCombo = blockCountCombo;
-    }
-
-    public int getHowManyPlaced() {
-        return howManyPlaced;
-    }
-
-    public void setHowManyPlaced(int howManyPlaced) {
-        this.howManyPlaced = howManyPlaced;
-    }
-
-    public int getCombo() {
-        return combo;
-    }
-
-    public void setCombo(int combo) {
-        this.combo = combo;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public void setGameOver(GameControl gameControl) {
-        this.gameControl = gameControl;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public ArrayList<Block> getBlocks() {
-        return blocks;
-    }
-
-    public Box[][] getGrid() {
-        return grid;
-    }
-
     private ArrayList<Point> points = new ArrayList<>();
 
+    /**
+     * Constructs a new {@code GameZone} with initialized grid and game features.
+     *
+     * @param mainScreen the main screen managing the overall game panels
+     */
     public GameZone(MainScreen mainScreen) {
         gameFeatures = new GameFeatures(this);
         player.newFiles();
@@ -83,6 +48,58 @@ public class GameZone extends JPanel {
         gameFeatures.reroll();
     }
 
+
+    public void setBlockCountCombo(int blockCountCombo) {
+        this.blockCountCombo = blockCountCombo;
+    }
+
+
+    public void setHowManyPlaced(int howManyPlaced) {
+        this.howManyPlaced = howManyPlaced;
+    }
+
+    public int getCombo() {
+        return combo;
+    }
+
+    public void setCombo(int combo) {
+        this.combo = combo;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    /**
+     * Sets the {@code GameControl} object which controls game-over and validation logic.
+     *
+     * @param gameControl the GameControl instance
+     */
+    public void setGameOver(GameControl gameControl) {
+        this.gameControl = gameControl;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public ArrayList<Block> getBlocks() {
+        return blocks;
+    }
+
+    public Box[][] getGrid() {
+        return grid;
+    }
+
+
+    /**
+     * Previews where a {@code Block} will be placed on the grid by
+     * calculating and highlighting valid positions based on mouse coordinates.
+     *
+     * @param block  the block to preview
+     * @param pixelX the x-coordinate of the cursor
+     * @param pixelY the y-coordinate of the cursor
+     */
     public void preview(Block block, int pixelX, int pixelY) {
         points.clear();
 
@@ -124,7 +141,15 @@ public class GameZone extends JPanel {
         repaint();
     }
 
-    //ChatGPT metoda
+    /**
+     * Attempts to place a {@code Block} on the grid at the given pixel location.
+     * Updates the grid, block visuals, scoring, combos, and game state if placement is valid.
+     *
+     * @param block  the block to place
+     * @param pixelX the x pixel coordinate where placement was attempted
+     * @param pixelY the y pixel coordinate where placement was attempted
+     * @Author: 50 % ChatGPT
+     */
     public void placeBlock(Block block, int pixelX, int pixelY) {
         int cellSize = grid[0][0].getWidth();
         int startX = (getWidth() - (6 * cellSize)) / 2;
@@ -225,6 +250,11 @@ public class GameZone extends JPanel {
     }
 
 
+    /**
+     * Draws the grid cells and block preview highlights on the screen.
+     *
+     * @param g the {@code Graphics} context used to draw the grid
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -252,6 +282,9 @@ public class GameZone extends JPanel {
     }
 
 
+    /**
+     * Refreshes the block inventory by removing the old one and creating a new {@code Inventory} object.
+     */
     public void inventory() {
         for (Component comp : this.getComponents()) {
             if (comp instanceof Inventory) {

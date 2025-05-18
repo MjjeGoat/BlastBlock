@@ -2,10 +2,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * The {@code Inventory} class represents the bottom section of the game screen where
+ * the player is provided with new {@code Block} objects to place into the grid.
+ * It displays and manages three randomly generated blocks at a time.
+ */
 public class Inventory extends JPanel {
 
     private GameZone gameZone;
 
+    /**
+     * Constructs an {@code Inventory} panel linked to a specific {@code GameZone}.
+     * Sets the size and position based on the {@code GameZone}'s dimensions
+     * and initializes it by generating and displaying three blocks.
+     *
+     * @param gameZone the game zone that this inventory is associated with
+     */
     public Inventory(GameZone gameZone) {
         this.gameZone = gameZone;
         this.setLayout(null);
@@ -23,6 +35,11 @@ public class Inventory extends JPanel {
         fillInv();
     }
 
+    /**
+     * Fills the inventory with three randomly generated {@code Block} objects.
+     * Each block is positioned within the panel and added both to the
+     * {@code GameZone}'s block list and to the game UI.
+     */
     public void fillInv(){
         Random rd = new Random();
 
