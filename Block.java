@@ -19,6 +19,10 @@ public class Block extends JPanel {
     private ArrayList<String[]> shape = new ArrayList<>();
     private Point start;
 
+    public void setShape(ArrayList<String[]> shape) {
+        this.shape = shape;
+    }
+
     /**
      * Constructs a Block of a specific type and assigns it to a game zone.
      *

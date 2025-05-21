@@ -11,17 +11,17 @@ public class Shop extends JPanel {
     private MainScreen mainScreen;
     private GameZone gameZone;
     private Player player;
-    private JLabel moneyLabel;
-    private JButton continueButton;
-    private JButton multiplierButton;
-    private JButton rerollButton;
-    private JButton skinsButton;
-    private JLabel rerollLabel;
-    private JLabel continueLabel;
-    private JLabel multipilerLabel;
-    private JPopupMenu noMoney = new JPopupMenu("You don't have enough money");
-    private JPopupMenu skins = new JPopupMenu();
-    private JPopupMenu ownedSkins = new JPopupMenu();
+    protected JLabel moneyLabel;
+    protected JButton continueButton;
+    protected JButton multiplierButton;
+    protected JButton rerollButton;
+    protected JButton skinsButton;
+    protected JLabel rerollLabel;
+    protected JLabel continueLabel;
+    protected JLabel multipilerLabel;
+    protected JPopupMenu noMoney = new JPopupMenu("You don't have enough money");
+    protected JPopupMenu skins = new JPopupMenu();
+    protected JPopupMenu ownedSkins = new JPopupMenu();
 
 
     /**
