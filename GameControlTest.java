@@ -73,4 +73,69 @@ class GameControlTest {
 
         assertFalse(control.allClear());
     }
+    @Test
+    void testCanPlaceShapeAt_whenPlaceIsFree() {
+        Box[][] grid = new Box[6][6];
+        for (int i = 0; i < 6; i++)
+            for (int j = 0; j < 6; j++)
+                grid[i][j] = new Box();
+
+        ArrayList<String[]> shape = new ArrayList<>();
+        shape.add(new String[]{"1", "1"});
+        shape.add(new String[]{"1", "0"});
+
+        boolean result = control.canPlaceShapeAt(shape, 0, 0, grid);
+        assertTrue(result);
+    }
+
+    @Test
+    void testCanPlaceShapeAt_whenPlaceIsAlreadyOccupied() {
+        Box[][] grid = new Box[6][6];
+        for (int i = 0; i < 6; i++)
+            for (int j = 0; j < 6; j++)
+                grid[i][j] = new Box();
+
+        grid[1][0].setOn(true);
+
+        ArrayList<String[]> shape = new ArrayList<>();
+        shape.add(new String[]{"1", "1"});
+        shape.add(new String[]{"1", "0"});
+
+        boolean result = control.canPlaceShapeAt(shape, 0, 0, grid);
+        assertFalse(result);
+    }
+
+    @Test
+    void testCanFitAnywhere_whenThereIsSpace() {
+        Block block = new Block(1,zone);
+        ArrayList<String[]> shape = new ArrayList<>();
+        shape.add(new String[]{"1"});
+        shape.add(new String[]{"1"});
+        block.setShape(shape);
+
+        zone.getBlocks().clear();
+        zone.getBlocks().add(block);
+
+        boolean result = control.canFitAnywhere(block);
+        assertTrue(result);
+    }
+
+    @Test
+    void testCanFitAnywhere_FullGrid() {
+        for (int i = 0; i < 6; i++)
+            for (int j = 0; j < 6; j++)
+                zone.getGrid()[i][j].setOn(true);
+
+        Block block = new Block(1,zone);
+        ArrayList<String[]> shape = new ArrayList<>();
+        shape.add(new String[]{"1"});
+        block.setShape(shape);
+
+        zone.getBlocks().clear();
+        zone.getBlocks().add(block);
+
+        boolean result = control.canFitAnywhere(block);
+        assertFalse(result);
+    }
 }
+

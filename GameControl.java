@@ -69,7 +69,7 @@ public class GameControl extends JPanel {
      * @param block The block to be tested.
      * @return {@code true} if it can fit somewhere; {@code false} If block do not fit inside grid.
      */
-    private boolean canFitAnywhere(Block block) {
+    protected boolean canFitAnywhere(Block block) {
         Box[][] grid = zone.getGrid();
         ArrayList<String[]> shape = block.getShape();
         boolean canFitAnywhere = false;
@@ -98,7 +98,7 @@ public class GameControl extends JPanel {
      * @param grid    The current game grid.
      * @return {@code true} if it can be placed; {@code false} if it can not be placed.
      */
-    private boolean canPlaceShapeAt(ArrayList<String[]> shape, int baseRow, int baseCol, Box[][] grid) {
+    protected boolean canPlaceShapeAt(ArrayList<String[]> shape, int baseRow, int baseCol, Box[][] grid) {
         for (int r = 0; r < shape.size(); r++) {
             String[] row = shape.get(r);
             for (int c = 0; c < row.length; c++) {
