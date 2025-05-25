@@ -263,11 +263,12 @@ public class Shop extends JPanel {
         this.add(equipSkinButton);
         equipSkinButton.addActionListener(e -> {
             ownedSkins.removeAll();
+            System.out.println(player.getOwnedSkins());
             for (String skinName : player.getOwnedSkins()) {
                 if (player.getOwnedSkins().contains(skinName)) {
                     JMenuItem item = new JMenuItem("Equip: " + skinName);
                     item.addActionListener(ev -> {
-                        player.setCurSkin(skinName);
+                            player.setCurSkin(skinName);
                     });
                     ownedSkins.add(item);
                 }

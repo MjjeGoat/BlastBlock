@@ -245,8 +245,8 @@ public class Player {
         fileCreator("src/player/rerolls", "reroll:0");
         fileCreator("src/player/highScore", "highscore:0");
         fileCreator("src/player/continueCount", "continueCount:0");
-        fileCreator("src/player/currentSkin","");
-        fileCreator("src/player/ownedSkins","");
+        fileCreator("src/player/currentSkin","basic");
+        fileCreator("src/player/ownedSkins","basic");
     }
 
     /**

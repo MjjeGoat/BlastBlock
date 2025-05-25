@@ -197,7 +197,7 @@ public class GameZone extends JPanel {
 
                             String skin = player.getCurSkin();
 
-                            if (skin == null || skin.isEmpty()) {
+                            if (skin.equals("basic")) {
                                 grid[gridRow][gridCol].setImageb(new ImageIcon("src/res/part.png"));
                             } else {
                                 File skinFile = new File("src/skins/" + skin + "/tile_" + gridRow + "_" + gridCol + ".png");
