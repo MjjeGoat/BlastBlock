@@ -158,7 +158,6 @@ public class Player {
      */
     public void setReroll(int amount) {
         int current = getReroll();
-        System.out.println(current);
         rerolls = current + amount;
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/player/rerolls"))) {
             bw.write("reroll:" + rerolls);
