@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="BlastBlock:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0b426dbc-3021-44bf-9938-9e269f5ebf10" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$/src" source="MainMaster" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_COMMON_BRANCH" value="MainMaster" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/src" />
+    <option name="ROOT_SYNC" value="SYNC" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;MjjeGoat&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/MjjeGoat/BlastBlock.git&quot;,
+    &quot;accountId&quot;: &quot;2eab24c3-24ab-453a-9826-dc9ff38feb2f&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2vURc25gfhPzIiDp8DttIsCSXFh" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+    <ConfirmationsSetting value="2" id="Remove" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.main.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "JAR Application.BlastBlock.executor": "Run",
+    "JAR Application.Unnamed.executor": "Run",
+    "JUnit.GameControlTest.executor": "Run",
+    "JUnit.GameZoneTest.executor": "Run",
+    "JUnit.ShopTest.executor": "Run",
+    "JUnit.ShopTest.testBuyRerollWithoutEnoughMoney.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "create.test.in.the.same.root": "true",
+    "git-widget-placeholder": "Test",
+    "last_opened_file_path": "C:/Users/Public/School/IT/BlockBlast",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/Public/School/IT/BlockBlast/BlastBlock2.0/src/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "GitStage.ChangesTree.GroupingKeys": [
+      "directory",
+      "module",
+      "repository"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Public\School\IT\BlockBlast\src\res" />
+      <recent name="C:\Users\Public\School\IT\BlockBlast\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Public\School\IT\BlockBlast" />
+      <recent name="C:\Users\Public\School\IT\BlockBlast\src\skins\bazil" />
+      <recent name="C:\Users\Public\School\IT\BlockBlast\src\skins\mrazak" />
+      <recent name="C:\Users\Public\School\IT\BlockBlast\src\skins\hever" />
+      <recent name="C:\Users\Public\School\IT\BlockBlast\src\skins\buko" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JAR Application.BlastBlock">
+    <configuration name="main" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="BlockBlast" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BlastBlock" type="JarApplication">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/BlockBlast_Hanzlik.jar" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\Public\School\IT\BlockBlast" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.main" />
+      <item itemvalue="JAR Application.BlastBlock" />
+    </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0b426dbc-3021-44bf-9938-9e269f5ebf10" name="Changes" comment="" />
+      <created>1744197746738</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1744197746738</updated>
+      <workItem from="1744197748013" duration="1574000" />
+      <workItem from="1744474722849" duration="30000" />
+      <workItem from="1744474788654" duration="13000" />
+      <workItem from="1744475448414" duration="1708000" />
+      <workItem from="1744709174029" duration="3126000" />
+      <workItem from="1744723202279" duration="4726000" />
+      <workItem from="1744728123146" duration="194000" />
+      <workItem from="1744780125500" duration="4717000" />
+      <workItem from="1744788587938" duration="2617000" />
+      <workItem from="1744791290386" duration="7830000" />
+      <workItem from="1744968642397" duration="1002000" />
+      <workItem from="1745090619285" duration="2734000" />
+      <workItem from="1745220194568" duration="6942000" />
+      <workItem from="1745254606171" duration="4338000" />
+      <workItem from="1745259929726" duration="432000" />
+      <workItem from="1745388717374" duration="8000" />
+      <workItem from="1745388791228" duration="1167000" />
+      <workItem from="1745392119211" duration="3824000" />
+      <workItem from="1745397441193" duration="18000" />
+      <workItem from="1745407069027" duration="5000" />
+      <workItem from="1745407090064" duration="1877000" />
+      <workItem from="1745561049620" duration="29000" />
+      <workItem from="1745561487752" duration="11075000" />
+      <workItem from="1745594820583" duration="447000" />
+      <workItem from="1745606362826" duration="3844000" />
+      <workItem from="1745817162391" duration="1814000" />
+      <workItem from="1745825114239" duration="3849000" />
+      <workItem from="1745831725522" duration="1396000" />
+      <workItem from="1745848448089" duration="2580000" />
+      <workItem from="1745866608081" duration="2956000" />
+      <workItem from="1745990447283" duration="4767000" />
+      <workItem from="1746002244994" duration="18000" />
+      <workItem from="1746087934470" duration="5987000" />
+      <workItem from="1746168825965" duration="202000" />
+      <workItem from="1746188616087" duration="6563000" />
+      <workItem from="1746271670270" duration="1859000" />
+      <workItem from="1746273560366" duration="141000" />
+      <workItem from="1746468801916" duration="234000" />
+      <workItem from="1746557234556" duration="3797000" />
+      <workItem from="1746597157416" duration="2099000" />
+      <workItem from="1746606405573" duration="7493000" />
+      <workItem from="1746624247979" duration="3384000" />
+      <workItem from="1746638677936" duration="4475000" />
+      <workItem from="1746770805085" duration="8744000" />
+      <workItem from="1746796270796" duration="3088000" />
+      <workItem from="1746882396112" duration="543000" />
+      <workItem from="1746891612063" duration="3249000" />
+      <workItem from="1746958469024" duration="3179000" />
+      <workItem from="1747026630236" duration="730000" />
+      <workItem from="1747040867712" duration="1813000" />
+      <workItem from="1747060193621" duration="1216000" />
+      <workItem from="1747125527967" duration="3128000" />
+      <workItem from="1747149157621" duration="7913000" />
+      <workItem from="1747199847993" duration="2660000" />
+      <workItem from="1747208296995" duration="2086000" />
+      <workItem from="1747212575426" duration="5353000" />
+      <workItem from="1747229711208" duration="1123000" />
+      <workItem from="1747249775161" duration="2711000" />
+      <workItem from="1747286751151" duration="5057000" />
+      <workItem from="1747296929570" duration="946000" />
+      <workItem from="1747390655235" duration="2252000" />
+      <workItem from="1747401763023" duration="4550000" />
+      <workItem from="1747420396527" duration="561000" />
+      <workItem from="1747559385268" duration="7698000" />
+      <workItem from="1747659768378" duration="879000" />
+      <workItem from="1747831140025" duration="3411000" />
+      <workItem from="1747918090411" duration="1041000" />
+      <workItem from="1747942994442" duration="725000" />
+      <workItem from="1748172780920" duration="1839000" />
+      <workItem from="1748177179744" duration="1949000" />
+      <workItem from="1748437094779" duration="5396000" />
+      <workItem from="1748457667779" duration="4000" />
+      <workItem from="1748457711823" duration="3109000" />
+      <workItem from="1748633344983" duration="1358000" />
+      <workItem from="1748638012262" duration="3000" />
+      <workItem from="1748639373132" duration="3000" />
+      <workItem from="1748639390015" duration="165000" />
+      <workItem from="1748639775741" duration="1392000" />
+      <workItem from="1748645382713" duration="933000" />
+    </task>
+    <task id="LOCAL-00001" summary="Zakladni Main menu a zacatek naplnovani inventare">
+      <option name="closed" value="true" />
+      <created>1744793716104</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1744793716104</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Musel jsem vsechno smazat:(">
+      <option name="closed" value="true" />
+      <created>1744797373844</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1744797373844</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Inventar se naplni a muzu hybat s blocky, zatim pouze s celymi.">
+      <option name="closed" value="true" />
+      <created>1745222778334</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1745222778334</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Pridani bloku do gamezony a odstraneni pokud je radek ci sloupec plny">
+      <option name="closed" value="true" />
+      <created>1745393484095</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1745393484095</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Pridani bloku do gamezony a odstraneni pokud je radek ci sloupec plny">
+      <option name="closed" value="true" />
+      <created>1745393698629</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1745393698629</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Pridani novych bloku">
+      <option name="closed" value="true" />
+      <created>1745395923704</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1745395923704</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Dokonceny algoritmus, ktery detekuje, zda se ma hra ukoncit">
+      <option name="closed" value="true" />
+      <created>1745575526771</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1745575526771</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Dokonceny algoritmus, ktery detekuje, zda se ma hra ukoncit">
+      <option name="closed" value="true" />
+      <created>1745575555881</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1745575555881</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Inventar se uz vygeneruje novy po ukonceni hry">
+      <option name="closed" value="true" />
+      <created>1745595257452</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1745595257452</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Pridani counteru na skore">
+      <option name="closed" value="true" />
+      <created>1745867970335</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1745867970335</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Pridani button na continue nebo ukonceni hry">
+      <option name="closed" value="true" />
+      <created>1746094175699</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1746094175699</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Pridani comba do hry a upraveni tlacitek continue a end game">
+      <option name="closed" value="true" />
+      <created>1746195115318</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1746195115318</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Lehka upravicka kodicku na vecer">
+      <option name="closed" value="true" />
+      <created>1746561028065</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1746561028065</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Nove scalovani, pridani money, highscore atd.">
+      <option name="closed" value="true" />
+      <created>1746892866129</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1746892866129</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Pridani Shopu a reroll inventare button, pricelist ktery zobrazuje ceny veci v shopu">
+      <option name="closed" value="true" />
+      <created>1747252460944</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1747252460944</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Pridani moznosti koupeni skinu a jejich vybrani, nove blocky">
+      <option name="closed" value="true" />
+      <created>1747406259466</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1747406259466</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Uprava kodu a pridani javaDocs">
+      <option name="closed" value="true" />
+      <created>1747568128409</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1747568128409</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Pridani UNIT testu">
+      <option name="closed" value="true" />
+      <created>1747834227378</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1747834227378</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Pridani UNIT testu">
+      <option name="closed" value="true" />
+      <created>1747919032574</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1747919032574</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Pridani moznosti vybrani si defaultniho skinu.">
+      <option name="closed" value="true" />
+      <created>1748173632269</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1748173632269</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Pridani moznosti vybrani si defaultniho skinu.">
+      <option name="closed" value="true" />
+      <created>1748178496201</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1748178496201</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Upraveni placovani bloku">
+      <option name="closed" value="true" />
+      <created>1748458304240</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1748458304240</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Zakladni Main menu a zacatek naplnovani inventare" />
+    <MESSAGE value="Musel jsem vsechno smazat:(" />
+    <MESSAGE value="Inventar se naplni a muzu hybat s blocky, zatim pouze s celymi." />
+    <MESSAGE value="Pridani bloku do gamezony a odstraneni pokud je radek ci sloupec plny" />
+    <MESSAGE value="Pridani novych bloku" />
+    <MESSAGE value="Dokonceny algoritmus, ktery detekuje, zda se ma hra ukoncit" />
+    <MESSAGE value="Inventar se uz vygeneruje novy po ukonceni hry" />
+    <MESSAGE value="Pridani counteru na skore" />
+    <MESSAGE value="Pridani button na continue nebo ukonceni hry" />
+    <MESSAGE value="Pridani comba do hry a upraveni tlacitek continue a end game" />
+    <MESSAGE value="Lehka upravicka kodicku na vecer" />
+    <MESSAGE value="Nove scalovani, pridani money, highscore atd." />
+    <MESSAGE value="Pridani Shopu a reroll inventare button, pricelist ktery zobrazuje ceny veci v shopu" />
+    <MESSAGE value="Pridani moznosti koupeni skinu a jejich vybrani, nove blocky" />
+    <MESSAGE value="Uprava kodu a pridani javaDocs" />
+    <MESSAGE value="Pridani UNIT testu" />
+    <MESSAGE value="Pridani moznosti vybrani si defaultniho skinu." />
+    <MESSAGE value="Upraveni placovani bloku" />
+    <option name="LAST_COMMIT_MESSAGE" value="Upraveni placovani bloku" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/BlastBlock2.0/src/Main.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
