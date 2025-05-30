@@ -243,6 +243,8 @@ public class GameZone extends JPanel {
                     gameFeatures.highScore();
                     gameFeatures.endGameButtons();
                 }
+            }else {
+                block.setLocation(block.start);
             }
         } catch (IOException e) {
             e.printStackTrace();
