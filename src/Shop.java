@@ -268,7 +268,7 @@ public class Shop extends JPanel {
                 if (player.getOwnedSkins().contains(skinName)) {
                     JMenuItem item = new JMenuItem("Equip: " + skinName);
                     item.addActionListener(ev -> {
-                            player.setCurSkin(skinName);
+                        player.setCurSkin(skinName);
                     });
                     ownedSkins.add(item);
                 }

@@ -43,7 +43,7 @@
       </map>
     </option>
     <option name="RECENT_COMMON_BRANCH" value="MainMaster" />
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/src" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -86,11 +86,12 @@
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "create.test.in.the.same.root": "true",
-    "git-widget-placeholder": "Test",
-    "last_opened_file_path": "C:/Users/Public/School/IT/BlockBlast",
+    "git-widget-placeholder": "final",
+    "last_opened_file_path": "C:/Users/Public/School/IT/ZavereckaBlastBlock",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -100,7 +101,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -134,13 +135,14 @@
     <configuration name="main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="BlockBlast" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="BlastBlock" type="JarApplication">
       <option name="JAR_PATH" value="$PROJECT_DIR$/BlockBlast_Hanzlik.jar" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\Public\School\IT\BlockBlast" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2" />
     </configuration>
@@ -243,6 +245,10 @@
       <workItem from="1748639390015" duration="165000" />
       <workItem from="1748639775741" duration="1392000" />
       <workItem from="1748645382713" duration="933000" />
+      <workItem from="1748647764301" duration="2444000" />
+      <workItem from="1748677732280" duration="1318000" />
+      <workItem from="1748680008095" duration="25000" />
+      <workItem from="1748680777036" duration="22000" />
     </task>
     <task id="LOCAL-00001" summary="Zakladni Main menu a zacatek naplnovani inventare">
       <option name="closed" value="true" />
