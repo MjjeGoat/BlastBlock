@@ -131,26 +131,6 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="main" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="BlockBlast" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BlastBlock" type="JarApplication">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/BlockBlast_Hanzlik.jar" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Application.main" />
-      <item itemvalue="JAR Application.BlastBlock" />
-    </list>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -251,7 +231,7 @@
       <workItem from="1748680777036" duration="348000" />
       <workItem from="1748681146256" duration="13000" />
       <workItem from="1748681691516" duration="1394000" />
-      <workItem from="1748716601374" duration="422000" />
+      <workItem from="1748716601374" duration="1076000" />
     </task>
     <task id="LOCAL-00001" summary="Zakladni Main menu a zacatek naplnovani inventare">
       <option name="closed" value="true" />
