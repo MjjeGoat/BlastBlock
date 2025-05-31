@@ -17,7 +17,7 @@ public class Block extends JPanel {
     private Point initialClick;
     private GameZone gameZone;
     private ArrayList<String[]> shape = new ArrayList<>();
-    private Point start;
+    protected Point start;
 
     public void setShape(ArrayList<String[]> shape) {
         this.shape = shape;
@@ -43,7 +43,6 @@ public class Block extends JPanel {
             }
 
             public void mouseReleased(MouseEvent e) {
-                returnToInventory();
                 gameZone.placeBlock(Block.this, getX(), getY());
             }
         });
@@ -128,12 +127,4 @@ public class Block extends JPanel {
         return type;
     }
 
-    /**
-     * Returns the block to its start location if it is dragged outside the screen.
-     */
-    public void returnToInventory() {
-        if (getX() > gameZone.getWidth() || getY() > gameZone.getHeight() || getX() < 0 || getY() < 0) {
-            setLocation(start);
-        }
-    }
 }
